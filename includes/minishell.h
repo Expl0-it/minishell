@@ -22,6 +22,7 @@ typedef strduct s_hell
 {
     char    **argv;
     char    *flags;
+    char    *cmd;
 }   t_hell;
 
 #endif
