@@ -18,4 +18,10 @@
 # include <limits.h>
 # include "libft.h"
 
+typedef strduct s_hell
+{
+    char    **argv;
+    char    *flags;
+}   t_hell;
+
 #endif
