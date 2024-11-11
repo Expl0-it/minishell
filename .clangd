@@ -1,2 +1,0 @@
-CompileFlags:
-  Add: [-I/home/expl0it/Documents/42/minishell/includes, -I/home/expl0it/Documents/42/minishell/libft]
