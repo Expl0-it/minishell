@@ -20,9 +20,20 @@
 
 typedef struct s_hell
 {
-    char    **argv;
-    char    *flags;
-    char    *cmd;
-}   t_hell;
+	char	**argv;
+	char	*flags;
+	char	*cmd;
+}				t_hell;
+
+typedef struct s_pipes
+{
+	int		infd;
+	int		outfd;
+	int		cmd_count;
+	bool	here_doc;
+	bool	invalid_infile;
+	char	**cmd;
+	char	***cmd_args;
+}			t_pipes;
 
 #endif
