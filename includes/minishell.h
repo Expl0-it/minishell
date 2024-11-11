@@ -16,9 +16,9 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <limits.h>
-# include "libft.h"
+# include "../libft/libft.h"
 
-typedef strduct s_hell
+typedef struct s_hell
 {
     char    **argv;
     char    *flags;
