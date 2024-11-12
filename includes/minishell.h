@@ -18,22 +18,24 @@
 # include <limits.h>
 # include "../libft/libft.h"
 
-typedef struct s_hell
+typedef struct s_shell
 {
 	char	**argv;
 	char	*flags;
 	char	*cmd;
-}				t_hell;
+}				t_shell;
 
 typedef struct s_pipes
 {
-	int		infd;
-	int		outfd;
-	int		cmd_count;
-	bool	here_doc;
-	bool	invalid_infile;
-	char	**cmd;
-	char	***cmd_args;
+	char	**cmd; // only commands (like: ls, echo, pwd, grep, NULL)
+	char	***cmd_args; // cmd + arg (like: [ls, -R, -a, NULL], [echo, -n, NULL], [pwd, NULL])
+	char	*limiter; // when using heredoc: << EOF
+	int		infd; // when redirecting input < infile
+	int		outfd; // when redirecting output > outfile
+	int		cmd_count; // number of commands (entries in **cmd without NULL)
+	bool	here_doc; // do we use heredoc (input redirection "<<")
+	bool	invalid_infile; // does the infile exist?
+	bool	append; // do we use replace ">" or append ">>" with output redirection
 }			t_pipes;
 
 #endif
