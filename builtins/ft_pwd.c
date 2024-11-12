@@ -5,12 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/31 15:27:19 by mamichal          #+#    #+#             */
-<<<<<<< HEAD:src/builtins/ft_pwd.c
-/*   Updated: 2024/11/12 16:03:41 by mamichal         ###   ########.fr       */
-=======
-/*   Updated: 2024/11/12 20:30:47 by codespace        ###   ########.fr       */
->>>>>>> b6e9c34 (reorganized):builtins/ft_pwd.c
+/*   Created: 2024/11/12 20:44:20 by codespace         #+#    #+#             */
+/*   Updated: 2024/11/12 20:44:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

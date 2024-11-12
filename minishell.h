@@ -24,6 +24,8 @@
 # include "../libft/libft.h"
 # include "msg.h"
 
+# define ERR_EXIT_MANY_ARGS "minishell: exit: too many arguments "
+
 typedef struct s_shell
 {
 	uint8_t	exit_code;
