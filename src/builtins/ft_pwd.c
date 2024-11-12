@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:27:19 by mamichal          #+#    #+#             */
-/*   Updated: 2024/11/04 20:47:45 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/11/12 16:03:41 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int	ft_pwd(void)
 		perror("minishell pwd");
 		return (EXIT_FAILURE);
 	}
-	return (printf("%s", cwd), EXIT_SUCCESS);
+	return (printf("%s\n", cwd), EXIT_SUCCESS);
 }
