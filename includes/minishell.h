@@ -16,10 +16,13 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <stdint.h>
 # include "../libft/libft.h"
+# include "msg.h"
 
 typedef struct s_shell
 {
+	uint8_t	exit_code;
 	char	**argv;
 	char	*flags;
 	char	*cmd;
