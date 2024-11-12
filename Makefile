@@ -4,7 +4,12 @@ CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -lreadline
 RM = rm -f
 
-SRCS = main.c parse/parse_input.c
+SRCS = main.c \
+parse/parse_input.c \
+builtins/ft_echo.c \
+builtins/ft_exit.c \
+builtins/ft_pwd.c \
+
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
