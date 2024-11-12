@@ -1,6 +1,10 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# ifndef PATH_LEN
+# define PATH_MAX 4096
+# endif
+
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
