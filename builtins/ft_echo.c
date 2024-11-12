@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:00:04 by mamichal          #+#    #+#             */
-/*   Updated: 2024/11/12 15:38:47 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/11/12 20:39:04 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute.h"
+#include "minishell.h"
 
 static void	echo_args(char **args, bool n_flag, int i)
 {
