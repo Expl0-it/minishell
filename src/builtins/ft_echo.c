@@ -6,13 +6,13 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:00:04 by mamichal          #+#    #+#             */
-/*   Updated: 2024/11/12 13:16:54 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/11/12 15:38:47 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-static void	echo_args(const char **args, bool n_flag, int i)
+static void	echo_args(char **args, bool n_flag, int i)
 {
 	if (NULL == args || NULL == args[i])
 		return ;
@@ -27,7 +27,7 @@ static void	echo_args(const char **args, bool n_flag, int i)
 		printf("\n");
 }
 
-int	ft_echo(const char **args)
+int	ft_echo(char **args)
 {
 	// TODO: TESTS
 	bool	n_flag;
