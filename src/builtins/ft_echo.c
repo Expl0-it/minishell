@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:00:04 by mamichal          #+#    #+#             */
-/*   Updated: 2024/11/12 13:10:23 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/11/12 13:16:54 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 static void	echo_args(const char **args, bool n_flag, int i)
 {
-	if (NULL != args || NULL != *args)
+	if (NULL == args || NULL == args[i])
+		return ;
+	printf("%s", args[i]);
+	i++;
+	while (args[i])
 	{
-		printf("%s", args[i]);
+		printf(" %s", args[i]);
 		i++;
-		while (args[i])
-		{
-			printf(" %s", args[i]);
-			i++;
-		}
 	}
 	if (false == n_flag)
 		printf("\n");
