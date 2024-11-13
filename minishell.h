@@ -32,11 +32,12 @@ typedef struct s_data
     char    *cmd;
 }   t_data;
 
+// NOTE: basically that is how I would like parsing for piping to be done
 typedef struct s_pipes
 {
-	char	**cmd; // only commands (like: ls, echo, pwd, grep, NULL)
-	char	***cmd_args; // cmd + arg (like: [ls, -R, -a, NULL], [echo, -n, NULL], [pwd, NULL])
-	char	*limiter; // when using heredoc: << EOF
+	char	**cmd_paths; // only command paths (like: /usr/bin/ls, /usr/bin/echo, /usr/bin/pwd, /usr/bin/grep, NULL)
+	char	***cmd_args; // cmd + arg (like: [ls, -R, -la, NULL], [echo, -n, NULL], [pwd, NULL])
+	char	*limiter; // when using heredoc: << limiter || else NULL
 	int		infd; // when redirecting input < infile
 	int		outfd; // when redirecting output > outfile
 	int		cmd_count; // number of commands (entries in **cmd without NULL)

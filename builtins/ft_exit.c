@@ -6,13 +6,11 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:21:42 by mamichal          #+#    #+#             */
-/*   Updated: 2024/11/12 21:16:36 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/11/12 21:52:22 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "minishell.h"
-#include <stdint.h>
 
 int	ft_exit(char **args, t_shell *shell)
 {
