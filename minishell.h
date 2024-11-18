@@ -32,18 +32,27 @@ typedef struct s_data
     char    *cmd;
 }   t_data;
 
-// NOTE: basically that is how I would like parsing for piping to be done
+// NOTE: a struct to contain enviromental variables where 'key'='value' (type export in bash to see)
+typedef struct	s_env
+{
+	char		*key;
+	char		*val;
+	struct s_env	*next;
+	struct s_env	*prev;
+}   t_env;
+
+// NOTE: basically that is how I would like parsing for piping to be done, we would do an array of those structs for every pipe
 typedef struct s_pipes
 {
-	char	**cmd_paths; // only command paths (like: /usr/bin/ls, /usr/bin/echo, /usr/bin/pwd, /usr/bin/grep, NULL)
-	char	***cmd_args; // cmd + arg (like: [ls, -R, -la, NULL], [echo, -n, NULL], [pwd, NULL])
+//	char	**cmd_paths; // only command paths (like: /usr/bin/ls, /usr/bin/echo, /usr/bin/pwd, /usr/bin/grep, NULL) (you can check those while switching to bash and using "which <command_name>")
+	char	**cmd; // cmd + arg (like: [ls, -R -la, NULL] or [echo, -n, NULL] or [pwd, NULL])
 	char	*limiter; // when using heredoc: << limiter || else NULL
 	int		infd; // when redirecting input < infile
 	int		outfd; // when redirecting output > outfile
-	int		cmd_count; // number of commands (entries in **cmd without NULL)
+//	int		cmd_count; // number of commands (entries in **cmd without NULL)
 	bool	here_doc; // do we use heredoc (input redirection "<<")
-	bool	invalid_infile; // does the infile exist?
-	bool	append; // do we use replace ">" or append ">>" with output redirection
+	bool	invalid_infile; // does the infile exist and do we have premissions to it?
+	bool	append; // do we use replace ">" or append ">>" file's contents with output redirection
 }			t_pipes;
 
 #endif
