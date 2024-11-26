@@ -56,4 +56,21 @@ typedef struct s_shell
 {
 	t_env	*env;
 }		t_shell;
+
+// utils
+// free_arr.c
+void	free_arr(char **arr, int to_be_freed);
+void	free_2d_arr(char ***arr, int to_be_freed);
+
+// builtins
+int	ft_env(t_shell *shell);
+int	ft_pwd(void);
+int	ft_echo(char **args);
+int	ft_exit(char **args, t_shell *shell);
+
+// env
+// init_env.c
+t_env	*new_env_node(char **split);
+int	init_env(t_shell *shell, char **envp);
+
 #endif
