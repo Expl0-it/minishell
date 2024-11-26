@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 13:36:29 by mamichal          #+#    #+#             */
-/*   Updated: 2024/11/25 13:39:34 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:20:09 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_env(t_shell *shell)
 	{
 		printf("%s", env->key);
 		printf("=");
-		printf("%s", env->val);
+		printf("%s\n", env->val);
 		env = env->next;
 	}
 	return (EXIT_SUCCESS);
