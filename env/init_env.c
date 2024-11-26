@@ -1,25 +1,25 @@
 #include "minishell.h"
 
 // NOTE: used in case when enviromental variable has '=' inside it
-char	*concat_split(char **split)
+static char	*concat_split(char **split, char split_delimeter, int i_start)
 {
 	int		i;
 	int		len;
 	int		curr;
 	char	*ret;
 
-	i = 1;
+	i = i_start;
 	len = 0;
 	while (split[i])
 		len += ft_strlen(split[i++]) + 1;
 	ret = (char *)ft_calloc(len, sizeof(char));
-	i = 1;
+	i = i_start;
 	curr = 0;
 	while (split[i])
 	{
 		curr = ft_strlcat(ret, split[i], len);
 		if (NULL != split[++i])
-			ret[+curr] = '=';
+			ret[+curr] = split_delimeter;
 	}
 	return (ret);
 }
@@ -36,7 +36,7 @@ t_env	*new_env_node(char **split)
 		new_node->val = ft_strdup(split[1]);
 	else
 	{
-		new_node->val = concat_split(split);
+		new_node->val = concat_split(split, '=', 1);
 	}
 	if (NULL == new_node->key || NULL == new_node->val)
 	{
