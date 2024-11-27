@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:50:45 by rdavurov          #+#    #+#             */
-/*   Updated: 2024/11/23 21:33:58 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/27 19:37:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,37 @@ void	skip_spaces(char **input)
 {
 	while (*(*input) == ' ')
 		(*input)++;
+}
+
+int		char_count(char **input)
+{
+	int		len;
+
+	len = 0;
+	while (*(*input) != ' ' && *(*input) != '\0')
+	{
+		if (*(*input) == '"' || *(*input) == '\'')
+		{
+			(*input)++;
+			while (*(*input) != '"' && *(*input) != '\'')
+			{
+				len++;
+				(*input)++;
+			}
+			(*input)++;
+			skip_spaces(input);
+			return len;
+		}
+		else
+		{
+			len++;
+			(*input)++;
+			if (*(*input) == '\'' || *(*input) == '"')
+				break;
+		}
+	}
+	skip_spaces(input);
+	return len;
 }
 
 int		count_commands(char *input)
@@ -54,8 +85,17 @@ int		count_commands(char *input)
 void	parse_input(t_data *data, char *input)
 {
 	int		count;
-	(void)data;
+	int i;
 	
+	i = 0;
 	count = count_commands(input);
-	printf("%d", count);
+	data->argv = (char **)malloc(sizeof(char *) * count + 1);
+	
+	skip_spaces(&input);
+	while (i < count)
+	{
+		printf("char_count: %d\n", char_count(&input));
+		i++;
+		// data->argv[i] = (char *)malloc(sizeof(char) * char_count(&input) + 1);
+	}
 }
