@@ -21,7 +21,7 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <stdint.h>
-# include "../libft/libft.h"
+# include "libft/libft.h"
 
 # define ERR_EXIT_MANY_ARGS "minishell: exit: too many arguments "
 
@@ -72,5 +72,8 @@ int	ft_exit(char **args, t_shell *shell);
 // init_env.c
 t_env	*new_env_node(char **split);
 int	init_env(t_shell *shell, char **envp);
+
+// parser
+void	parse_input(t_data *data, char *input);
 
 #endif

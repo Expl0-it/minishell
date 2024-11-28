@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:50:45 by rdavurov          #+#    #+#             */
-/*   Updated: 2024/11/27 19:37:54 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/28 12:36:11 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ void	parse_input(t_data *data, char *input)
 	skip_spaces(&input);
 	while (i < count)
 	{
-		printf("char_count: %d\n", char_count(&input));
+		data->argv[i] = (char *)malloc(sizeof(char) * char_count(&input) + 1);
+		// put the string into the array :))))))))))))))))
+		data->argv[i][char_count(&input)] = '\0';
 		i++;
-		// data->argv[i] = (char *)malloc(sizeof(char) * char_count(&input) + 1);
 	}
 }
