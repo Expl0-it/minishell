@@ -54,6 +54,7 @@ typedef struct s_pipes
 
 typedef struct s_shell
 {
+	uint8_t	exit_code;
 	t_env	*env;
 }		t_shell;
 
