@@ -1,0 +1,4 @@
+.clangd
+.vscode
+test.c
+a.out
