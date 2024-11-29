@@ -1,8 +1,11 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
+IFLAGS = -I ./
 LDFLAGS = -lreadline
 RM = rm -f
+LIBFT_PATH = ./libft
+LIBFT = $(LIBFT_PATH)/libft.a
 
 SRCS = main.c \
 parse/parse.c \
@@ -14,17 +17,21 @@ OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(LDFLAGS) $(IFLAGS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+
+${LIBFT}:
+	make -C ${LIBFT_PATH} all
 
 clean:
+	make -C ${LIBFT_PATH} fclean
 	rm -f $(TARGET) $(OBJS)
 
 fclean: clean
-	rm -f $(TARGET)
+	rm -f $(TARGET) $(NAME)
 
 re: fclean all
 
