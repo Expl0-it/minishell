@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:50:45 by rdavurov          #+#    #+#             */
-/*   Updated: 2024/11/28 20:43:57 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/30 18:15:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ void	skip_spaces(char **input)
 int		char_count(char *input, int *i)
 {
 	int		len;
+	char	quote;
 
 	len = 0;
 	while (input[*i] != ' ' && input[*i] != '\0')
 	{
 		if  (input[*i] == '"' || input[*i] == '\'')
 		{
+			quote = input[*i];
 			(*i)++;
-			while (input[*i] != '"' && input[*i] != '\'')
+			while (input[*i] != quote)
 			{
 				len++;
 				(*i)++;
@@ -54,6 +56,7 @@ int		char_count(char *input, int *i)
 int		count_commands(char *input)
 {
 	int		count;
+	char	quote;
 
 	count = 0;
 	skip_spaces(&input);
@@ -61,9 +64,10 @@ int		count_commands(char *input)
 	{
 		while (*input == '"' || *input == '\'')
 		{
+			quote = *input;
 			count++;
 			input++;
-			while (*input != '"' && *input != '\'')
+			while (*input != quote)
 				input++;
 			input++;
 			skip_spaces(&input);
@@ -85,35 +89,42 @@ int		count_commands(char *input)
 }
 
 
-// loop over argv with iterators ))))))))))))))
 void	fill_cmd(char **input, char **argv)
 {
+	int		j;
+	char	quote;
+	
+	j = 0;
 	while (**input != ' ' && **input != '\0')
 	{
 		if (**input == '"' || **input == '\'')
 		{
+			quote = **input;
 			(*input)++;
-			**argv = **input;
-			(*argv)++;
-			while (**input != '"' && **input != '\'')
+			argv[0][j] = **input;
+			j++;
+			while (**input != quote)
 			{
-				**argv = **input;
-				(*argv)++;
+				argv[0][j] = **input;
+				j++;
 				(*input)++;
 			}
 			(*input)++;
+			argv[0][j] = '\0';
+			return ;
 		}
 		else
 		{
-			**argv = **input;
-			(*argv)++;
+			argv[0][j] = **input;
+			j++;
 			(*input)++;
 		}
-		skip_spaces(input);
-		**argv = '\0';
-		argv++;
 	}
+	skip_spaces(input);
+	argv[0][j] = '\0';
 }
+
+//fix the "hfdjkh hdsjk''hfdjsk hdjk" case
 
 void	parse_input(t_data *data, char *input)
 {
@@ -130,11 +141,10 @@ void	parse_input(t_data *data, char *input)
 	while (i < count)
 	{
 		data->argv[i] = (char *)malloc(sizeof(char) * char_count(input, &j) + 1);
+		fill_cmd(&input, data->argv + i);
 		i++;
 	}
-	fill_cmd(&input, data->argv);
-
-	// print data->argv
+	data->argv[i] = NULL;
 	i = 0;
 	while (data->argv[i] != NULL)
 	{
