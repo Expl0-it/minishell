@@ -1,4 +1,5 @@
 .clangd
 .vscode
 test.c
-a.out
+*.out
+*.o
