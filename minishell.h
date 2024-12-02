@@ -69,10 +69,16 @@ int	ft_pwd(void);
 int	ft_echo(char **args);
 int	ft_exit(char **args, t_shell *shell);
 
-// env
+// NOTE: env
+//
 // init_env.c
-t_env	*new_env_node(char **split);
 int	init_env(t_shell *shell, char **envp);
+
+// create_env.c
+t_env	*new_env_node(char **split);
+
+// utils_env.c
+char	*concat_split(char **split, char split_delimeter, int i_start);
 
 // parser
 void	parse_input(t_data *data, char *input);
