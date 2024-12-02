@@ -60,8 +60,8 @@ typedef struct s_shell
 
 // utils
 // free_arr.c
-void	free_arr(char **arr, int to_be_freed);
-void	free_2d_arr(char ***arr, int to_be_freed);
+void	free_str_arr(char **arr, int to_be_freed);
+void	free_2d_str_arr(char ***arr, int to_be_freed);
 
 // builtins
 int	ft_env(t_shell *shell);

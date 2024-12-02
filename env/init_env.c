@@ -63,7 +63,7 @@ int	init_env(t_shell *shell, char **envp)
 		if (NULL == split)
 			return (EXIT_FAILURE);
 		new_node = new_env_node(split);
-		free_arr(split, -1);
+		free_str_arr(split, -1);
 		if (NULL == new_node)
 			return (EXIT_FAILURE);
 		if (0 == i)
