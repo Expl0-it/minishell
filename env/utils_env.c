@@ -39,3 +39,13 @@ t_env	*get_env_node(t_env *env, char *key)
 	}
 	return (NULL);
 }
+
+t_env	*get_last_node(t_env *env)
+{
+	t_env	*last_node;
+
+	last_node = env;
+	while (NULL != last_node->next)
+		last_node = last_node->next;
+	return (last_node);
+}
