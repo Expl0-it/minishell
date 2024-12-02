@@ -79,6 +79,7 @@ t_env	*new_env_node(char **split);
 
 // utils_env.c
 char	*concat_split(char **split, char split_delimeter, int i_start);
+t_env	*get_env_node(t_env *env, char *key);
 
 // parser
 void	parse_input(t_data *data, char *input);
