@@ -82,6 +82,7 @@ char	*concat_split(char **split, char split_delimeter, int i_start);
 t_env	*get_env_node(t_env *env, char *key);
 t_env	*get_env_last_node(t_env *env);
 int	get_env_size(t_env *env);
+bool	is_valid_env_var(char *key);
 
 // parser
 void	parse_input(t_data *data, char *input);
