@@ -49,3 +49,16 @@ t_env	*get_env_last_node(t_env *env)
 		last_node = last_node->next;
 	return (last_node);
 }
+
+int	get_env_size(t_env *env)
+{
+	int	size;
+
+	size = 0;
+	while (NULL != env)
+	{
+		size++;
+		env = env->next;
+	}
+	return (size);
+}
