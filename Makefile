@@ -9,9 +9,15 @@ LIBFT = $(LIBFT_PATH)/libft.a
 
 SRCS = main.c \
 parse/parse.c \
+parse/parse_env.c \
 builtins/ft_echo.c \
 builtins/ft_exit.c \
 builtins/ft_pwd.c \
+builtins/ft_env.c \
+env/init_env.c \
+env/utils_env.c \
+env/create_env.c \
+utils/free_arr.c
 
 OBJS = $(SRCS:.c=.o)
 
