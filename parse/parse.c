@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:50:45 by rdavurov          #+#    #+#             */
-/*   Updated: 2024/11/30 18:15:40 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/03 10:36:53 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,6 @@ void	fill_cmd(char **input, char **argv)
 	argv[0][j] = '\0';
 }
 
-//fix the "hfdjkh hdsjk''hfdjsk hdjk" case
-
 void	parse_input(t_data *data, char *input)
 {
 	int		count;
@@ -146,9 +144,5 @@ void	parse_input(t_data *data, char *input)
 	}
 	data->argv[i] = NULL;
 	i = 0;
-	while (data->argv[i] != NULL)
-	{
-		printf("data->argv[%d] = %s\n", i, data->argv[i]);
-		i++;
-	}
+	parse_env(data);
 }
