@@ -25,13 +25,6 @@
 
 # define ERR_EXIT_MANY_ARGS "minishell: exit: too many arguments "
 
-typedef struct s_data
-{
-    char    **argv;
-    char    *flags;
-    char    *cmd;
-}   t_data;
-
 // NOTE: a struct to contain enviromental variables where 'key'='value' (type export in bash to see)
 typedef struct	s_env
 {
@@ -39,6 +32,14 @@ typedef struct	s_env
 	char		*val;
 	struct s_env	*next;
 }   t_env;
+
+typedef struct s_data
+{
+    char    **argv;
+    char    *flags;
+    char    *cmd;
+	t_env	*env;
+}   t_data;
 
 // NOTE: basically that is how I would like parsing for piping to be done, we would do an array of those structs for every pipe
 typedef struct s_pipes
@@ -72,7 +73,7 @@ int	ft_exit(char **args, t_shell *shell);
 // NOTE: env
 //
 // init_env.c
-int	init_env(t_shell *shell, char **envp);
+int		init_env(t_data *data, char **envp); //changed to t_data *data
 
 // create_env.c
 t_env	*new_env_node(char **split);
@@ -81,10 +82,12 @@ t_env	*new_env_node(char **split);
 char	*concat_split(char **split, char split_delimeter, int i_start);
 t_env	*get_env_node(t_env *env, char *key);
 t_env	*get_env_last_node(t_env *env);
-int	get_env_size(t_env *env);
+int		get_env_size(t_env *env);
 bool	is_valid_env_var(char *key);
+void	free_str_arr(char **arr, int to_be_freed);
 
 // parser
 void	parse_input(t_data *data, char *input);
+void    parse_env(t_data *data);
 
 #endif
