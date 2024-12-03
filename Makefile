@@ -33,10 +33,10 @@ ${LIBFT}:
 	make -C ${LIBFT_PATH} all
 
 clean:
+	rm -f $(TARGET) $(OBJS)
 	# FIX: UNCOMMENT LATER, DONE FOR TESTING PURPOUSE
 	#
 	# make -C ${LIBFT_PATH} fclean
-	rm -f $(TARGET) $(OBJS)
 
 fclean: clean
 	rm -f $(TARGET) $(NAME)
