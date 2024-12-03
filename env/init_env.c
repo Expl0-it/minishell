@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+//it has seg fault
+
 int	init_env(t_data *data, char **envp)
 {
 	int		i;
