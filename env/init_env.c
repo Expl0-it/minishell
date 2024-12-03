@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	init_env(t_shell *shell, char **envp)
+int	init_env(t_data *data, char **envp)
 {
 	int		i;
 	char	**split;
@@ -8,7 +8,7 @@ int	init_env(t_shell *shell, char **envp)
 	t_env	*last_node;
 
 	i = 0;
-	shell->env = NULL;
+	data->env = NULL;
 	last_node = NULL;
 	while (NULL != envp[i])
 	{
@@ -20,7 +20,7 @@ int	init_env(t_shell *shell, char **envp)
 		if (NULL == new_node)
 			return (EXIT_FAILURE);
 		if (0 == i)
-			shell->env = new_node;
+			data->env = new_node;
 		else
 			(last_node->next = new_node);
 		last_node = new_node;
