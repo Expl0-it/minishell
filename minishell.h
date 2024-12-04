@@ -33,16 +33,8 @@ typedef struct	s_env
 	struct s_env	*next;
 }   t_env;
 
-typedef struct s_data
-{
-    char    **argv;
-    char    *flags;
-    char    *cmd;
-	t_env	*env;
-}   t_data;
-
 // NOTE: basically that is how I would like parsing for piping to be done, we would do an array of those structs for every pipe
-typedef struct s_pipes
+typedef struct s_pipe
 {
 	char	**cmd; // cmd + arg (like: [ls, -R -la, NULL] or [echo, -n, NULL] or [pwd, NULL])
 	char	*limiter; // when using heredoc: << limiter || else NULL
@@ -51,13 +43,17 @@ typedef struct s_pipes
 	bool	here_doc; // do we use heredoc (input redirection "<<")
 	bool	invalid_infile; // does the infile exist and do we have premissions to it?
 	bool	append; // do we use replace ">" or append ">>" file's contents with output redirection
-}			t_pipes;
+}			t_pipe;
 
-typedef struct s_shell
+typedef struct s_data
 {
 	uint8_t	exit_code;
 	t_env	*env;
-}		t_shell;
+	t_pipe	*pipe;
+	char    **argv;
+	char    *flags;
+	char    *cmd;
+}   t_data;
 
 // utils
 // free_arr.c
@@ -65,10 +61,10 @@ void	free_str_arr(char **arr, int to_be_freed);
 void	free_2d_str_arr(char ***arr, int to_be_freed);
 
 // builtins
-int	ft_env(t_shell *shell);
+int	ft_env(t_data *data);
 int	ft_pwd(void);
 int	ft_echo(char **args);
-int	ft_exit(char **args, t_shell *shell);
+int	ft_exit(char **args, t_data *data);
 
 // init_env.c
 int		init_env(t_data *data, char **envp); //changed to t_data *data
