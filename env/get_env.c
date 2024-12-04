@@ -38,3 +38,19 @@ int	get_env_size(t_env *env)
 	}
 	return (size);
 }
+
+char	*get_env_val(t_env *env, char *key)
+{
+	int	len;
+
+	if (NULL == key)
+		return (NULL);
+	len = ft_strlen(key);
+	while (NULL != env)
+	{
+		if (0 == ft_strncmp(key, env->key, len + 1))
+			return (env->val);
+		env = env->next;
+	}
+	return (NULL);
+}
