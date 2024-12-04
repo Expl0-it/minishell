@@ -5,7 +5,7 @@ void	free_str_arr(char **arr, int to_be_freed)
 	int	i;
 
 	i = -1;
-	if (-1 == to_be_freed)
+	if (to_be_freed < 0)
 		while (NULL != arr[++i])
 			free(arr[i]);
 	else
@@ -21,7 +21,7 @@ void	free_2d_str_arr(char ***arr, int to_be_freed)
 	int	i;
 
 	i = -1;
-	if (-1 == to_be_freed)
+	if (to_be_freed < 0)
 		while (arr[++i])
 			free_str_arr(arr[i], -1);
 	else
