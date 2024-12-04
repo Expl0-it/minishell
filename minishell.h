@@ -66,21 +66,20 @@ int	ft_pwd(void);
 int	ft_echo(char **args);
 int	ft_exit(char **args, t_data *data);
 
+// env
 // init_env.c
 int		init_env(t_data *data, char **envp); //changed to t_data *data
-
-// env
+// modify_env.c
+bool	overwrite_env_var(t_env *overwrite, char **split);
+// create_env.c
 t_env	*new_env_node(char **split);
-int		init_env(t_data *data, char **envp);
-
-
+bool	create_env_var(t_env *env, char *env_literal);
 // utils_env.c
 char	*concat_split(char **split, char split_delimeter, int i_start);
 t_env	*get_env_node(t_env *env, char *key);
 t_env	*get_env_last_node(t_env *env);
 int		get_env_size(t_env *env);
 bool	is_valid_env_var(char **split);
-void	free_str_arr(char **arr, int to_be_freed);
 
 // parser
 void	parse_input(t_data *data, char *input);

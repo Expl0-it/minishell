@@ -23,3 +23,26 @@ t_env	*new_env_node(char **split)
 	return (new_node);
 }
 
+bool	create_env_var(t_env *env, char *env_literal)
+{
+	t_env	*new_node;
+	t_env	*last_node;
+	t_env	*overwrite;
+	char	**split;
+
+	split = ft_split(env_literal, '=');
+	if (false == is_valid_env_var(split))
+		return (free_str_arr(split, -1), false);
+	overwrite = get_env_node(env, split[0]);
+	if (NULL != overwrite)
+		overwrite_env_var(overwrite, split);
+	new_node = new_env_node(split);
+	if (NULL == new_node)
+		return (free_str_arr(split, -1), false);
+	last_node = get_env_last_node(env);
+	if (NULL == last_node)
+		env = new_node;
+	else
+		last_node->next = new_node;
+	return (free_str_arr(split, -1), true);
+}
