@@ -71,6 +71,7 @@ int	ft_exit(char **args, t_data *data);
 int		init_env(t_data *data, char **envp); //changed to t_data *data
 // modify_env.c
 bool	overwrite_env_var(t_env *overwrite, char **split);
+bool	set_env_var(t_env *env, char *key, char *val);
 // create_env.c
 t_env	*new_env_node(char **split);
 bool	create_env_var(t_env *env, char *env_literal);
@@ -81,6 +82,7 @@ bool	is_valid_env_var(char **split);
 t_env	*get_env_node(t_env *env, char *key);
 t_env	*get_env_last_node(t_env *env);
 int		get_env_size(t_env *env);
+char	*get_env_val(t_env *env, char *key);
 
 // parser
 void	parse_input(t_data *data, char *input);

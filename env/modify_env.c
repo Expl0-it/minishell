@@ -15,3 +15,25 @@ bool	overwrite_env_var(t_env *overwrite, char **split)
 	else
 		return (true);
 }
+
+bool	set_env_var(t_env *env, char *key, char *val)
+{
+	int	len;
+
+	if (NULL == key)
+		return (false);
+	len = ft_strlen(key);
+	while (NULL != env)
+	{
+		if (0 == ft_strncmp(key, env->key, len + 1))
+		{
+			free(env->val);
+			env->val = ft_strdup(val);
+			if (NULL == env->val)
+				return (false);
+			return (true);
+		}
+		env = env->next;
+	}
+	return (false);
+}
