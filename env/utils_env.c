@@ -63,7 +63,6 @@ int	get_env_size(t_env *env)
 	return (size);
 }
 
-// TODO: TESTS
 bool	is_valid_env_var(char *key)
 {
 	int	i;
@@ -71,9 +70,9 @@ bool	is_valid_env_var(char *key)
 	if (NULL == key)
 		return (false);
 	i = 0;
-	while (key[i])
+	while (0 != key[i])
 	{
-		if (1 != ft_isalnum(key[i] && '_' != key[i]))
+		if (0 == ft_isalnum(key[i]) && '_' != key[i])
 			return (false);
 		i++;
 	}
