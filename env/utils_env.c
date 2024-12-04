@@ -8,6 +8,8 @@ char	*concat_split(char **split, char split_delimeter, int i_start)
 	int		curr;
 	char	*ret;
 
+	if (NULL == split)
+		return (NULL);
 	i = i_start;
 	len = 0;
 	while (split[i])
