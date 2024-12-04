@@ -63,12 +63,14 @@ int	get_env_size(t_env *env)
 	return (size);
 }
 
-bool	is_valid_env_var(char *key)
+bool	is_valid_env_var(char **split)
 {
-	int	i;
+	int		i;
+	char	*key;
 
-	if (NULL == key)
+	if (NULL == split || NULL == split[0] || NULL == split[1])
 		return (false);
+	key = split[0];
 	i = 0;
 	while (0 != key[i])
 	{
