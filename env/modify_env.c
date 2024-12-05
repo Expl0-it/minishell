@@ -6,7 +6,9 @@ bool	overwrite_env_var(t_env *overwrite, char **split)
 		return (false);
 	free(overwrite->val);
 	overwrite->val = NULL;
-	if (NULL == split[2])
+	if (NULL == split[1])
+		overwrite->val = ft_strdup("");
+	else if (NULL == split[2])
 		overwrite->val = ft_strdup(split[1]);
 	else
 		overwrite->val = concat_split(split, '=', 1);
@@ -28,7 +30,10 @@ bool	set_env_var(t_env *env, char *key, char *val)
 		if (0 == ft_strncmp(key, env->key, len + 1))
 		{
 			free(env->val);
-			env->val = ft_strdup(val);
+			if (NULL == val)
+				env->val = ft_strdup("");
+			else
+				env->val = ft_strdup(val);
 			if (NULL == env->val)
 				return (false);
 			return (true);

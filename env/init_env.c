@@ -27,9 +27,6 @@ int	init_env(t_data *data, char **envp)
 			(last_node->next = new_node);
 		last_node = new_node;
 		i++;
-
-		// if (strncmp(new_node->key, "NVM_DIR", 7) == 0)
-		// 	i++;
 	}
 	return (EXIT_SUCCESS);
 }

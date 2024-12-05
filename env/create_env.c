@@ -5,10 +5,12 @@ t_env	*new_env_node(char **split)
 	t_env	*new_node;
 
 	new_node = (t_env *)malloc(sizeof(t_env));
-	if (NULL == new_node)
+	if (NULL == new_node || NULL == split[0])
 		return (NULL);
 	new_node->key = ft_strdup(split[0]);
-	if (NULL == split[2])
+	if (NULL == split[1])
+		new_node->val = ft_strdup("");
+	else if (NULL == split[2])
 		new_node->val = ft_strdup(split[1]);
 	else
 		new_node->val = concat_split(split, '=', 1);
