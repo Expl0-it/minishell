@@ -31,7 +31,7 @@ bool	is_valid_env_var(char **split)
 	int		i;
 	char	*key;
 
-	if (NULL == split || NULL == split[0] || NULL == split[1])
+	if (NULL == split || NULL == split[0])
 		return (false);
 	key = split[0];
 	i = 0;
