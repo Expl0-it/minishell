@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:34:14 by rdavurov          #+#    #+#             */
-/*   Updated: 2024/12/05 11:23:32 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/05 12:49:51 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	main(int argc, char **argv, char **envp)
 	while (true)
 	{
 		//handle signals
-		line = readline("[minishell]$");
+		ft_env(&data);
+		line = readline("[minishell]$ ");
 		if (NULL == line)
 			break;
 		if (!*line)
