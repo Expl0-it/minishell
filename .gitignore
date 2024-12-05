@@ -3,3 +3,4 @@
 test.c
 *.out
 *.o
+*.old
