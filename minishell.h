@@ -67,10 +67,11 @@ void	free_str_arr(char **arr, int to_be_freed);
 void	free_2d_str_arr(char ***arr, int to_be_freed);
 
 // builtins
-int	ft_env(t_data *data);
-int	ft_pwd(void);
-int	ft_echo(char **args);
-int	ft_exit(char **args, t_data *data);
+int		ft_env(t_data *data);
+int		ft_pwd(void);
+int		ft_echo(char **args);
+int		ft_exit(char **args, t_data *data);
+void	ft_unset(char **args, t_data *data);
 
 // env
 // init_env.c
