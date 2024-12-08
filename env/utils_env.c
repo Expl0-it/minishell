@@ -44,6 +44,13 @@ bool	is_valid_env_var(char **split)
 	return (true);
 }
 
+void	free_env_var(t_env *env_var)
+{
+	free(env_var->key);
+	free(env_var->val);
+	free(env_var);
+}
+
 void	free_env(t_env *env)
 {
 	t_env	*tmp;
@@ -52,9 +59,7 @@ void	free_env(t_env *env)
 	{
 		tmp = env;
 		env = env->next;
-		free(tmp->key);
-		free(tmp->val);
-		free(tmp);
+		free_env_var(tmp);
 	}
 	env = NULL;
 }
