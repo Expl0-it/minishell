@@ -42,3 +42,31 @@ bool	set_env_var(t_env *env, char *key, char *val)
 	}
 	return (false);
 }
+
+bool	rm_env_var(t_env *env, char *key)
+{
+	t_env	*prev;
+	t_env	*curr;
+	int		len;
+
+	curr = env;
+	prev = NULL;
+	if (NULL == key)
+		return (false);
+	len = ft_strlen(key);
+	while (NULL != curr)
+	{
+		if (0 == ft_strncmp(curr->key, key, len + 1))
+		{
+			if (NULL != prev)
+				prev->next = curr->next;
+			else
+				env = curr->next;
+			free_env_var(curr);
+			return (true);
+		}
+		prev = curr;
+		curr = curr->next;
+	}
+	return (false);
+}

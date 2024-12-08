@@ -78,6 +78,7 @@ int		init_env(t_data *data, char **envp); //changed to t_data *data
 // modify_env.c
 bool	overwrite_env_var(t_env *overwrite, char **split);
 bool	set_env_var(t_env *env, char *key, char *val);
+bool	rm_env_var(t_env *env, char *key);
 // create_env.c
 t_env	*new_env_node(char **split);
 bool	create_env_var(t_env *env, char *env_literal);
