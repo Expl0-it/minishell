@@ -6,13 +6,13 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 13:29:46 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/08 13:33:53 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:25:08 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_unset(char **args, t_data *data)
+void	ft_unset(t_data *data, char **args)
 {
 	char	**to_unset;
 	int		i;

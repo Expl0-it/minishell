@@ -70,9 +70,9 @@ void	free_2d_str_arr(char ***arr, int to_be_freed);
 int		ft_env(t_data *data);
 int		ft_pwd(void);
 int		ft_echo(char **args);
-int		ft_exit(char **args, t_data *data);
-void	ft_unset(char **args, t_data *data);
-void	ft_export(char **args, t_data *data);
+int		ft_exit(t_data *data, char **args);
+void	ft_unset(t_data *data, char **args);
+void	ft_export(t_data *data, char **args);
 
 // env
 // init_env.c

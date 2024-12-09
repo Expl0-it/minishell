@@ -6,13 +6,13 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:21:42 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/04 07:31:12 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:25:19 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit(char **args, t_data *data)
+int	ft_exit(t_data *data, char **args)
 {
 	// TODO: TESTS
 	if (NULL == args[1])

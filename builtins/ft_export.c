@@ -6,13 +6,13 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:58:06 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/09 11:58:07 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:25:28 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_export(char **args, t_data *data)
+void	ft_export(t_data *data, char **args)
 {
 	char	**to_export;
 	int		i;
