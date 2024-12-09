@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:34:14 by rdavurov          #+#    #+#             */
-/*   Updated: 2024/12/09 18:26:22 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/09 19:19:57 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 
 	((void)argc, (void)argv);
+	init_signals();
 	if (EXIT_FAILURE == init_env(&data, envp))
 		exit(EXIT_FAILURE);
-	//handle signals
 	while (true)
 	{
 		ft_env(&data);
