@@ -72,6 +72,7 @@ int		ft_pwd(void);
 int		ft_echo(char **args);
 int		ft_exit(char **args, t_data *data);
 void	ft_unset(char **args, t_data *data);
+void	ft_export(char **args, t_data *data);
 
 // env
 // init_env.c
