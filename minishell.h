@@ -99,6 +99,7 @@ char	*get_env_val(t_env *env, char *key);
 // signals
 void	sig_int(int sig);
 void	sig_term(int sig);
+void	init_signals(void);
 
 // parser
 void	parse_input(t_data *data, char *input);
