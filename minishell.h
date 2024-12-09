@@ -96,6 +96,9 @@ t_env	*get_env_last_node(t_env *env);
 int		get_env_size(t_env *env);
 char	*get_env_val(t_env *env, char *key);
 
+// signals
+void	sig_int(int sig);
+
 // parser
 void	parse_input(t_data *data, char *input);
 void    parse_env(t_data *data);

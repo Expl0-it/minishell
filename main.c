@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:34:14 by rdavurov          #+#    #+#             */
-/*   Updated: 2024/12/05 12:49:51 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/09 18:26:22 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	main(int argc, char **argv, char **envp)
 	((void)argc, (void)argv);
 	if (EXIT_FAILURE == init_env(&data, envp))
 		exit(EXIT_FAILURE);
+	//handle signals
 	while (true)
 	{
-		//handle signals
 		ft_env(&data);
 		line = readline("[minishell]$ ");
 		if (NULL == line)
