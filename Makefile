@@ -7,7 +7,7 @@ RM = rm -f
 LIBFT_PATH = ./libft
 LIBFT = $(LIBFT_PATH)/libft.a
 
-SRCS = $(wildcard *.c) $(wildcard */*.c)
+SRCS =  main.c $(wildcard */*.c)
 
 OBJS = $(SRCS:.c=.o)
 
