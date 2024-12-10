@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:20:14 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/09 13:46:52 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:02:09 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ static bool	update_env_pwd(t_data *data, char *old_pwd)
 	free(old_pwd);
 	free(new_pwd);
 	return (true);
-
 }
 
+// NOTE: TESTS
 int	ft_cd(t_data *data, char **args)
 {
-	// NOTE: TESTS
 	char	*new_pwd;
 	char	*old_pwd;
 

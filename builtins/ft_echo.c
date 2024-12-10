@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:00:04 by mamichal          #+#    #+#             */
-/*   Updated: 2024/11/12 20:39:04 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/10 13:02:26 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	echo_args(char **args, bool n_flag, int i)
 
 int	ft_echo(char **args)
 {
-	// TODO: TESTS
 	bool	n_flag;
 	int		i;
 
