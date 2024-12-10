@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:03:51 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/10 13:03:53 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:06:37 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ t_env	*new_env_node(char **split)
 		new_node->val = concat_split(split, '=', 1);
 	if (NULL == new_node->key || NULL == new_node->val)
 	{
-		free(new_node->key);
-		free(new_node->val);
-		free(new_node);
+		free_env_var(new_node);
 		return (NULL);
 	}
 	new_node->next = NULL;
