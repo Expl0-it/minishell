@@ -25,6 +25,13 @@
 
 # define ERR_EXIT_MANY_ARGS "minishell: exit: too many arguments "
 
+typedef enum e_err_exit
+{
+	OK,
+	MALLOC_ERR,
+	PIPE_ERR,
+}			t_err_exit;
+
 typedef enum e_write_mode
 {
 	REPLACE,
