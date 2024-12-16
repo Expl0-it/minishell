@@ -51,6 +51,7 @@ typedef struct s_pipe
 {
 	char			**cmd; // cmd + arg (like: [ls, -R -la, NULL] or [echo, -n, NULL] or [pwd, NULL])
 	char			*limiter; // when using heredoc: << limiter || else NULL
+	int				fds[2];
 	int				infd; // when redirecting input < infile
 	int				outfd; // when redirecting output > outfile
 	pid_t			pid; // current proccess pid
@@ -73,6 +74,8 @@ typedef struct s_data
 // free_arr.c
 void	free_str_arr(char **arr, int to_be_freed);
 void	free_2d_str_arr(char ***arr, int to_be_freed);
+// err_exit.c
+void	err_exit(t_data *data, char *msg, t_err_exit status);
 
 // builtins
 int		ft_env(t_data *data);
