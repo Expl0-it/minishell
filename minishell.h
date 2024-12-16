@@ -47,7 +47,7 @@ typedef struct	s_env
 }   t_env;
 
 // NOTE: basically that is how I would like parsing for piping to be done, we would do an array of those structs for every pipe
-typedef struct s_pipe
+typedef struct s_pipes
 {
 	char			**cmd; // cmd + arg (like: [ls, -R -la, NULL] or [echo, -n, NULL] or [pwd, NULL])
 	char			*limiter; // when using heredoc: << limiter || else NULL
@@ -58,14 +58,14 @@ typedef struct s_pipe
 	bool			here_doc; // do we use heredoc (input redirection "<<")
 	bool			invalid_infile; // does the infile exist and do we have premissions to it?
 	t_write_mode	write_mode; // do we use replace ">" or append ">>" file's contents with output redirection
-}			t_pipe;
+}			t_pipes;
 
 typedef struct s_data
 {
 	uint8_t	exit_code;
 	uint8_t	cmd_exit_code;
 	t_env	*env;
-	t_pipe	*pipe;
+	t_pipes	*pipes;
 	char	**argv;
 	char	*flags;
 	char	*cmd;

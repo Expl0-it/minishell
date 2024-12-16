@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:31:12 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/16 13:24:57 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/16 18:58:44 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,3 +29,18 @@ void	open_pipes(t_data *data)
 		i++;
 	}
 }	
+
+void	close_pipes(t_data *data)
+{
+	int		i;
+	t_pipes	*curr;
+
+	i = 0;
+	while (data->pipes[i].cmd)
+	{
+		curr = &data->pipes[i];
+		close(curr->fds[0]);
+		close(curr->fds[1]);
+		i++;
+	}
+}
