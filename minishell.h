@@ -116,4 +116,10 @@ void	init_signals(void);
 void	parse_input(t_data *data, char *input);
 void    parse_env(t_data *data);
 
+// exec
+// exec.c
+void	execute(t_data *data);
+// pipes.c
+void	open_pipes(t_data *data);
+
 #endif
