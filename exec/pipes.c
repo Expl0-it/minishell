@@ -16,12 +16,12 @@
 void	open_pipes(t_data *data)
 {
 	int		i;
-	t_pipe	*curr;
+	t_pipes	*curr;
 
 	i = 0;
-	while (NULL != data->pipe[i].cmd)
+	while (NULL != data->pipes[i].cmd)
 	{
-		curr = &data->pipe[i];
+		curr = &data->pipes[i];
 		curr->fds[0] = curr->infd;
 		curr->fds[1] = curr->outfd;
 		if (pipe(curr->fds) < 0)

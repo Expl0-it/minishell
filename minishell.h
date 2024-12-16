@@ -122,5 +122,6 @@ void    parse_env(t_data *data);
 void	execute(t_data *data);
 // pipes.c
 void	open_pipes(t_data *data);
+void	close_pipes(t_data *data);
 
 #endif
