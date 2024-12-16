@@ -62,6 +62,7 @@ typedef struct s_pipe
 
 typedef struct s_data
 {
+	uint8_t	exit_code;
 	uint8_t	cmd_exit_code;
 	t_env	*env;
 	t_pipe	*pipe;
