@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:31:12 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/16 18:58:44 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:15:45 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	open_pipes(t_data *data)
 			err_exit(data, "pipe failure\n", PIPE_ERR);
 		i++;
 	}
-}	
+}
 
 void	close_pipes(t_data *data)
 {
