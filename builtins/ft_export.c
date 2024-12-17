@@ -6,20 +6,20 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 11:58:06 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/09 12:25:28 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:29:08 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_export(t_data *data, char **args)
+int	ft_export(t_data *data, char **args)
 {
 	char	**to_export;
 	int		i;
 
 	i = 0;
 	to_export = ft_split(args[1], ' ');
-	while (to_export[i])
+	while (NULL != to_export && NULL != to_export[i])
 	{
 		if (false == create_env_var(data->env, to_export[i]))
 		{
@@ -30,4 +30,5 @@ void	ft_export(t_data *data, char **args)
 		i++;
 	}
 	free_str_arr(to_export, -1);
+	return (0);
 }
