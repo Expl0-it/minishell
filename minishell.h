@@ -30,6 +30,7 @@ typedef enum e_err_exit
 	OK,
 	MALLOC_ERR,
 	PIPE_ERR,
+	FORK_ERR,
 }			t_err_exit;
 
 typedef enum e_write_mode
@@ -123,5 +124,6 @@ void	execute(t_data *data);
 // pipes.c
 void	open_pipes(t_data *data);
 void	close_pipes(t_data *data);
+void	close_useless_pipes(t_data *data, int i_pipe);
 
 #endif
