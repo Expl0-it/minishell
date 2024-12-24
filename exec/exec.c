@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/17 13:49:18 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/24 11:01:23 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,22 @@ void	execute(t_data *data)
 {
 	int	i;
 	int	res;
-	(void)res; // NOTE: temp, just to compile
 
 	i = 0;
 	open_pipes(data);
 	while (data->pipes[i].cmd)
 	{
 		res = exec_builtin(data, i);
+		data->pipes[i].pid = 0;
+		if (-1 == res)
 		// TODO:
+		// fork_exec
+			;
+		else
+			data->cmd_exit_code = res;
 		i++;
 	}
 	close_pipes(data);
+	// NOTE: assign to exit code
+	// data->cmd_exit_code
 }
