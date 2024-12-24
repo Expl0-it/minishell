@@ -44,3 +44,20 @@ void	close_pipes(t_data *data)
 		i++;
 	}
 }
+
+void	close_useless_pipes(t_data *data, int i_pipe)
+{
+	t_pipes	*pipes;
+	int		i_curr;
+
+	pipes = data->pipes;
+	i_curr = 0;
+	while (NULL != pipes && NULL != pipes[i_curr].cmd)
+	{
+		if (i_pipe != i_curr)
+			close(pipes[i_curr].fds[1]);
+		if (i_pipe - 1 != i_curr)
+			close(pipes[i_curr].fds[0]);
+		i_curr++;
+	}
+}
