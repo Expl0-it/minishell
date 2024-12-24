@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:31:12 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/16 19:15:45 by mamichal         ###   ########.fr       */
+/*   Updated: 2024/12/24 11:34:38 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	open_pipes(t_data *data)
 	t_pipes	*curr;
 
 	i = 0;
-	while (NULL != data->pipes[i].cmd)
+	while (NULL != data->pipes && NULL != data->pipes[i].cmd)
 	{
 		curr = &data->pipes[i];
 		curr->fds[0] = curr->infd;
@@ -36,7 +36,7 @@ void	close_pipes(t_data *data)
 	t_pipes	*curr;
 
 	i = 0;
-	while (data->pipes[i].cmd)
+	while (NULL != data->pipes && NULL != data->pipes[i].cmd)
 	{
 		curr = &data->pipes[i];
 		close(curr->fds[0]);
