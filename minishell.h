@@ -52,6 +52,8 @@ typedef struct s_pipes
 {
 	char			**cmd; // cmd + arg (like: [ls, -R -la, NULL] or [echo, -n, NULL] or [pwd, NULL])
 	char			*limiter; // when using heredoc: << limiter || else NULL
+	char			*infile; // NOTE: those should be also helpful to you to handle opening the files and put fds to struct
+	char			*outfile; // NOTE: those should be also helpful to you to handle opening the files and put fds to struct
 	int				fds[2];
 	int				infd; // when redirecting input < infile
 	int				outfd; // when redirecting output > outfile
