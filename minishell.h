@@ -127,5 +127,7 @@ void	execute(t_data *data);
 void	open_pipes(t_data *data);
 void	close_pipes(t_data *data);
 void	close_useless_pipes(t_data *data, int i_pipe);
+// redirections.c
+void	handle_redirections(t_data *data, int i);
 
 #endif
