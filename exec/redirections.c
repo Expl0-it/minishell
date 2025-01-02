@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/02 21:48:23 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/02 21:54:24 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ static bool	handle_heredoc(t_pipes *curr)
 	if (false == read_heredoc(curr, fd, input))
 		return (false);
 	close(fd);
-	fd = open(".heredoc", O_RDONLY, 0644);
-	dup2(fd, STDIN_FILENO);
-	close(fd);
+	curr->infd = open(".heredoc", O_RDONLY, 0644);
 	free(curr->limiter);
 	curr->limiter = NULL;
 	return (true);
@@ -55,10 +53,10 @@ static void	redirect_input(t_data *data, int i)
 	t_pipes *curr;
 
 	curr = &data->pipes[i];
-	if (true == curr->heredoc && NULL != curr->limiter)
-		handle_heredoc(curr);
-	else if (0 == curr->pid)
+	if (0 == curr->pid)
 	{	
+		if (true == curr->heredoc && NULL != curr->limiter)
+			handle_heredoc(curr);
 		if (curr->infd != -1)
 			dup2(curr->infd, STDIN_FILENO);
 		else if (0 != i)
