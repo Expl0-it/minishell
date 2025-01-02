@@ -1,5 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirections.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
+/*   Updated: 2025/01/02 12:23:27 by mamichal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
+static bool	read_heredoc(t_pipes *curr, int fd, char *input)
+{
+	while (1)
+	{
+		input = readline("> ");
+		if (NULL == input)
+			return (false);
+		if (ft_strncmp(curr->limiter, input, ft_strlen(curr->limiter) + 1))
+		{
+			free(input);
+			break ;
+		}
+		ft_putendl_fd(input, fd);
+		free(input);
+	}
+	return (true);
+}
 
 static bool	handle_heredoc(t_pipes *curr)
 {
