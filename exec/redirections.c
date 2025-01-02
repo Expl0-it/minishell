@@ -1,5 +1,26 @@
 #include "minishell.h"
 
+
+static bool	handle_heredoc(t_pipes *curr)
+{
+	int	fd;
+	char *input;
+
+	input = NULL;
+	fd = open(".heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (-1 == fd)
+		return (false);
+	if (false == read_heredoc(curr, fd, input))
+		return (false);
+	close(fd);
+	fd = open(".heredoc", O_RDONLY, 0644);
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+	free(curr->limiter);
+	curr->limiter = NULL;
+	return (true);
+}
+
 static void	redirect_input(t_data *data, int i)
 {
 	t_pipes *curr;
