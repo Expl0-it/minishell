@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/02 12:23:27 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/02 21:48:23 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static void	redirect_input(t_data *data, int i)
 	{	
 		if (curr->infd != -1)
 			dup2(curr->infd, STDIN_FILENO);
+		else if (0 != i)
+			dup2(data->pipes[i - 1].fds[0], STDIN_FILENO);
 	}
 	else
 		dup2(curr->fds[0], STDIN_FILENO);
