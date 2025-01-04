@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*get_absolute_path(t_data *data, char *cmd_path)
+static char	*get_absolute_path(t_data *data, char *cmd_path)
 {
 	char	*abs_path;
 	char	*cwd;
