@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 16:15:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/04 19:38:00 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:57:07 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,20 @@ static char	*get_bin_path(t_data *data, char *bin_name)
 	if (NULL == bin_path)
 		return (NULL);
 	return (bin_path);
+}
+
+char	*get_path(t_data *data, int i)
+{
+	t_pipes	*curr;
+	char	*path;
+
+	curr = &data->pipes[i];
+	if ('.' == curr->cmd[0][0] || '/' == curr->cmd[0][0])
+		path = get_absolute_path(data, curr->cmd[0]);
+	else
+		path = get_bin_path(data, curr->cmd[0]);
+	if (NULL == path)
+		return (NULL);
+	else
+		return (path);
 }
