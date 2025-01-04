@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:50:45 by rdavurov          #+#    #+#             */
-/*   Updated: 2024/12/03 12:11:02 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/18 19:26:27 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		char_count(char *input, int *i)
 			(*i)++;
 			while (input[*i] != quote)
 			{
-				len++;
+				len++; 
 				(*i)++;
 			}
 			(*i)++;
@@ -42,6 +42,11 @@ int		char_count(char *input, int *i)
 		}
 		else
 		{
+			if (input[*i] == '$')
+			{
+				i++;
+				
+			}
 			len++;
 			(*i)++;
 			if (input[*i] == '\'' || input[*i] == '"')

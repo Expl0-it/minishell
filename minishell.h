@@ -43,8 +43,8 @@ typedef enum e_write_mode
 typedef struct	s_env
 {
 	char		*key;
-	char		*val;
-	struct s_env	*next;
+	char		*value;
+	struct t_env	*next;
 }   t_env;
 
 // NOTE: basically that is how I would like parsing for piping to be done, we would do an array of those structs for every pipe
@@ -69,7 +69,7 @@ typedef struct s_data
 	uint8_t	cmd_exit_code;
 	t_env	*env;
 	t_pipes	*pipes;
-	char	**argv;
+	char	**args;
 	char	*flags;
 	char	*cmd;
 }   t_data;
@@ -80,6 +80,7 @@ void	free_str_arr(char **arr, int to_be_freed);
 void	free_2d_str_arr(char ***arr, int to_be_freed);
 // err_exit.c
 void	err_exit(t_data *data, char *msg, t_err_exit status);
+void	exit_error(char *message);
 
 // builtins
 int		ft_env(t_data *data);
@@ -91,8 +92,7 @@ int		ft_export(t_data *data, char **args);
 int		ft_cd(t_data *data, char **args);
 
 // env
-// init_env.c
-int		init_env(t_data *data, char **envp); //changed to t_data *data
+void	init_env(t_data *data, char **envp); //changed to t_data *data
 // modify_env.c
 bool	overwrite_env_var(t_env *overwrite, char **split);
 bool	set_env_var(t_env *env, char *key, char *val);
@@ -117,8 +117,11 @@ void	sig_term(int sig);
 void	init_signals(void);
 
 // parser
-void	parse_input(t_data *data, char *input);
+void	parse_input(t_data *data, char *line);
 void    parse_env(t_data *data);
+void	skip_spaces(char **line);
+bool	is_space(char c);
+bool	is_quote(char c);
 
 // exec
 // exec.c

@@ -3,40 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   init_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:03:29 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/10 13:03:32 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:29:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	init_env(t_data *data, char **envp)
+static t_env *new_env(char *envp)
 {
-	int		i;
-	char	**split;
-	t_env	*new_node;
-	t_env	*last_node;
+    t_env   *env;
 
-	i = 0;
-	data->env = NULL;
-	last_node = NULL;
-	while (NULL != envp[i])
-	{
-		split = (char **)ft_split(envp[i], '=');
-		if (NULL == split)
-			return (EXIT_FAILURE);
-		new_node = new_env_node(split);
-		free_str_arr(split, -1);
-		if (NULL == new_node)
-			return (EXIT_FAILURE);
-		if (0 == i)
-			data->env = new_node;
-		else
-			(last_node->next = new_node);
-		last_node = new_node;
-		i++;
-	}
-	return (EXIT_SUCCESS);
+    env = malloc(sizeof(t_env));
+    if (!env)
+        exit_error("error: malloc failed\n");
+    env->key = ft_strndup(envp, ft_strchr(envp, '=') - envp);
+    env->value = ft_strndup(ft_strchr(envp, '=') + 1, ft_strlen(ft_strchr(envp, '=') + 1));
+    env->next = NULL;
+    return (env);
+}
+
+void init_env(t_data *data, char **envp)
+{
+    t_env   *current;
+    short   i;
+
+    i = 0;
+    while (envp[i])
+    {
+        if (!i)
+        {
+            data->env = new_env(envp[i]);
+            current = data->env;
+        }
+        else
+        {
+            current->next = new_env(envp[i]);
+            current = current->next;
+        }
+        i++;
+    }
 }
