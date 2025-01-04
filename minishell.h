@@ -81,6 +81,9 @@ void	free_2d_str_arr(char ***arr, int to_be_freed);
 // err_exit.c
 void	err_exit(t_data *data, char *msg, t_err_exit status);
 void	exit_error(char *message);
+// path_utils.c
+char	*join_paths(char *p1, char *p2);
+char	*find_valid_bin_path(char *bin_name, char **split);
 
 // builtins
 int		ft_env(t_data *data);
@@ -132,5 +135,7 @@ void	close_pipes(t_data *data);
 void	close_useless_pipes(t_data *data, int i_pipe);
 // redirections.c
 void	handle_redirections(t_data *data, int i);
+// paths.c
+char	*get_path(t_data *data, int i);
 
 #endif
