@@ -43,8 +43,8 @@ typedef enum e_write_mode
 typedef struct	s_env
 {
 	char		*key;
-	char		*value;
-	struct t_env	*next;
+	char		*val;
+	struct s_env	*next;
 }   t_env;
 
 // NOTE: basically that is how I would like parsing for piping to be done, we would do an array of those structs for every pipe
@@ -95,7 +95,7 @@ int		ft_export(t_data *data, char **args);
 int		ft_cd(t_data *data, char **args);
 
 // env
-void	init_env(t_data *data, char **envp); //changed to t_data *data
+int	init_env(t_data *data, char **envp); //changed to t_data *data
 // modify_env.c
 bool	overwrite_env_var(t_env *overwrite, char **split);
 bool	set_env_var(t_env *env, char *key, char *val);
