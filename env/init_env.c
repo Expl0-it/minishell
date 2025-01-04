@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:03:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/04 18:29:39 by codespace        ###   ########.fr       */
+/*   Updated: 2025/01/04 21:51:11 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@ static t_env *new_env(char *envp)
 
     env = malloc(sizeof(t_env));
     if (!env)
-        exit_error("error: malloc failed\n");
+    {
+        printf("error: malloc failed\n");
+        exit(1);
+    }
     env->key = ft_strndup(envp, ft_strchr(envp, '=') - envp);
-    env->value = ft_strndup(ft_strchr(envp, '=') + 1, ft_strlen(ft_strchr(envp, '=') + 1));
+    env->val = ft_strndup(ft_strchr(envp, '=') + 1, ft_strlen(ft_strchr(envp, '=') + 1));
     env->next = NULL;
     return (env);
 }
 
-void init_env(t_data *data, char **envp)
+int init_env(t_data *data, char **envp)
 {
     t_env   *current;
     short   i;
@@ -45,4 +48,6 @@ void init_env(t_data *data, char **envp)
         }
         i++;
     }
+    // change it later to so it doesnt always return 0
+    return (0);
 }
