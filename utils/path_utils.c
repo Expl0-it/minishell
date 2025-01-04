@@ -54,3 +54,26 @@ static bool	bin_is_executable(struct stat bin_stat)
 	return (false);
 }
 
+char	*find_valid_bin_path(char *bin_name, char **split)
+{
+	struct stat	bin_stat;
+	int			i;
+	char		*bin_path;
+
+	i = 0;
+	while (NULL != split[i])
+	{
+		bin_path = join_paths(split[i], bin_name);
+		if (NULL == bin_path)
+			return (NULL);
+		if (lstat(bin_path, &bin_stat) != -1)
+		{
+			if (bin_is_executable(bin_stat))
+				return (bin_path);
+		}
+		else
+			free(bin_path);
+		i++;
+	}
+	return (NULL);
+}
