@@ -40,3 +40,17 @@ char	*join_paths(char *p1, char *p2)
 	}
 }
 
+static bool	bin_is_executable(struct stat bin_stat)
+{
+	if ((bin_stat.st_mode > 0) && (S_IEXEC & bin_stat.st_mode) && S_ISREG(bin_stat.st_mode))
+	{
+		if (bin_stat.st_mode & S_IXUSR)
+			return (true);
+		else
+			ft_putendl_fd("file is not executable", 2);
+	}
+	else
+		ft_putendl_fd("file not found", 2);
+	return (false);
+}
+
