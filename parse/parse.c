@@ -1,153 +1,147 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 18:50:45 by rdavurov          #+#    #+#             */
-/*   Updated: 2024/12/18 19:26:27 by codespace        ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "minishell.h"
 
-#include "../minishell.h"
-
-void	skip_spaces(char **input)
+static short	process_env(t_env *env, char **line, char **arg)
 {
-	while (*(*input) == ' ')
-		(*input)++;
+	t_env	*current;
+	short	n;
+
+	(*line)++;
+	current = env;
+	n = 0;
+	while (current)
+	{
+		if (!ft_strncmp(current->key, *line, ft_strlen(current->key)))
+		{
+			if (*arg)
+				*arg += ft_strlcpy(*arg, current->val, ft_strlen(current->val) + 1);
+			*line += ft_strlen(current->key);
+			n += ft_strlen(current->val);
+			break ;
+		}
+		current = current->next;
+	}
+	return (n);
 }
 
-int		char_count(char *input, int *i)
+static short	process_quoted_arg(t_env *env, char **line, short *count, char *arg)
 {
-	int		len;
+	short	n;
 	char	quote;
 
-	len = 0;
-	while (input[*i] != ' ' && input[*i] != '\0')
+	n = 0;
+	quote = *(*line)++;
+	while (**line != quote)
 	{
-		if  (input[*i] == '"' || input[*i] == '\'')
+		if (quote == '"' && **line == '$' && env)
+			n += process_env(env, line, &arg);
+		else
 		{
-			quote = input[*i];
-			(*i)++;
-			while (input[*i] != quote)
-			{
-				len++; 
-				(*i)++;
-			}
-			(*i)++;
-			while (input[*i] == ' ')
-				(*i)++;
-			return len;
+			if (arg)
+				*arg++ = **line;
+			(*line)++;
+			n++;
+		}
+	}
+	(*line)++;
+	if (count)
+		(*count)++;
+	return (n);
+}
+
+static short	process_arg(t_env *env, char *line, char *arg)
+{
+	short	n;
+
+	n = 0;
+	if (is_quote(*line))
+		return (process_quoted_arg(env, &line, NULL, arg));
+	while (!is_space(*line) && !is_quote(*line) && *line)
+	{
+		if (env && *line == '$')
+			n += process_env(env, &line, &arg);
+		else
+		{
+			if (arg)
+				*arg++ = *line;
+			line++;
+			n++;
+		}
+	}
+	return (n);
+}
+
+static short	count_args(char *line)
+{
+    short   count;
+
+    while (*line)
+    {
+		if (is_quote(*line))
+			process_quoted_arg(NULL, &line, &count, NULL);
+		else if (is_space(*line))
+		{
+			if (!is_quote(*(line - 1)))
+				count++;
+			skip_spaces(&line);
 		}
 		else
 		{
-			if (input[*i] == '$')
-			{
-				i++;
-				
-			}
-			len++;
-			(*i)++;
-			if (input[*i] == '\'' || input[*i] == '"')
-				break;
+			line++;
+			if (is_quote(*line) || !*line)
+				count++;
 		}
-	}
-	while (input[*i] == ' ')
-		(*i)++;
-	return len;
-}
-
-int		count_commands(char *input)
-{
-	int		count;
-	char	quote;
-
-	count = 0;
-	skip_spaces(&input);
-	while (*input != '\0')
-	{
-		while (*input == '"' || *input == '\'')
-		{
-			quote = *input;
-			count++;
-			input++;
-			while (*input != quote)
-				input++;
-			input++;
-			skip_spaces(&input);
-		}
-		if (*input == ' ')
-		{
-			count++;
-			skip_spaces(&input);
-		}
-		else
-			if (*input != '\0' && *input != '"' && *input != '\'')	
-				input++;
-		if ((*(input + 1) == '\'' || *(input + 1) == '"') && *input != ' ')
-			count++;
-		if (*(input - 1) != ' ' && *(input - 1) != '"' && *(input - 1) != '\'' && *input == '\0')
-			count++;
-	}
+    }
 	return (count);
 }
-
-
-void	fill_cmd(char **input, char **argv)
+// put it into another file for norminette
+void	check_unclosed_quotes(char *line)
 {
-	int		j;
-	char	quote;
-	
-	j = 0;
-	while (**input != ' ' && **input != '\0')
+	short	quote;
+
+	quote = 0;
+	while (*line)
 	{
-		if (**input == '"' || **input == '\'')
+		if (is_quote(*line))
 		{
-			quote = **input;
-			(*input)++;
-			argv[0][j] = **input;
-			j++;
-			while (**input != quote)
-			{
-				argv[0][j] = **input;
-				j++;
-				(*input)++;
-			}
-			(*input)++;
-			argv[0][j] = '\0';
-			return ;
+			if (!quote)
+				quote = *line;
+			else if (quote == *line)
+				quote = 0;
 		}
-		else
-		{
-			argv[0][j] = **input;
-			j++;
-			(*input)++;
-		}
+		line++;
 	}
-	skip_spaces(input);
-	argv[0][j] = '\0';
+	if (quote)
+	{
+		printf("error: unclosed quote\n");
+		exit(1);
+	}
 }
 
-void	parse_input(t_data *data, char *input)
+void	parse_input(t_data *data, char *line)
 {
-	int		count;
-	int 	i;
-	int		j;
-	
+	t_env	*env;
+	short	i;
+	short   n;
+	short	m;
+
+	check_unclosed_quotes(line);
+	env = data->env;
+	n = count_args(line);
+    data->args = malloc(sizeof(char *) * (n + 1));
+	data->args[n] = NULL;
 	i = 0;
-	j = 0;
-	count = count_commands(input);
-	data->argv = (char **)malloc(sizeof(char *) * count + 1);
-	
-	skip_spaces(&input);
-	while (i < count)
+	while (i < n)
 	{
-		data->argv[i] = (char *)malloc(sizeof(char) * char_count(input, &j) + 1);
-		fill_cmd(&input, data->argv + i);
+		m = process_arg(env, line, NULL);
+		data->args[i] = malloc(sizeof(char) * (m + 1));
+		data->args[i][m] = '\0';
+		process_arg(env, line, data->args[i]);
+		if (is_quote(*line))
+			process_quoted_arg(env, &line, NULL, NULL);
+		else
+			line += process_arg(NULL, line, NULL);
+		printf("arg[%d]: %s\n", i, data->args[i]);
+		skip_spaces(&line);
 		i++;
 	}
-	data->argv[i] = NULL;
-	i = 0;
-	parse_env(data);
 }
