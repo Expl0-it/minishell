@@ -112,7 +112,7 @@ void	check_unclosed_quotes(char *line)
 	}
 	if (quote)
 	{
-		printf("error: unclosed quote\n");
+		ft_putstr_fd("error: unclosed quote\n", 2);
 		exit(1);
 	}
 }
