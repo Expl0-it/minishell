@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/24 11:01:23 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:41:41 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,22 @@ static int	exec_bin(t_data *data, int i)
 	return (res);
 }
 
+static void	fork_exec(t_data *data, int i)
+{
+	t_pipes	*cur_pipe;
+
+	cur_pipe = &data->pipes[i];
+	cur_pipe->pid = fork();
+	if (-1 == cur_pipe->pid)
+		err_exit(data, "fork failed", FORK_ERR);
+	if (0 == cur_pipe->pid)
+	{
+		close_useless_pipes(data, i);
+		handle_redirections(data, i);
+		data->cmd_exit_code = exec_bin(data, i);
+	}
+}
+
 void	execute(t_data *data)
 {
 	int	i;
@@ -75,9 +91,7 @@ void	execute(t_data *data)
 		res = exec_builtin(data, i);
 		data->pipes[i].pid = 0;
 		if (-1 == res)
-		// TODO:
-		// fork_exec
-			;
+			fork_exec(data, i);
 		else
 			data->cmd_exit_code = res;
 		i++;
