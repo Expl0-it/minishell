@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/08 11:49:42 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:59:01 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ static int	exec_bin(t_data *data, int i)
 	return (res);
 }
 
-static void	fork_exec(t_data *data, int i)
+static int	fork_exec(t_data *data, int i)
 {
 	t_pipes	*cur_pipe;
+	int		res;
 
+	res = -1;
 	cur_pipe = &data->pipes[i];
 	cur_pipe->pid = fork();
 	if (-1 == cur_pipe->pid)
@@ -81,6 +83,9 @@ static void	fork_exec(t_data *data, int i)
 			close(data->pipes[i - 1].fds[0]);
 		exit(data->cmd_exit_code);
 	}
+	wait(&res);
+	data->cmd_exit_code = res;
+	return (res);
 }
 
 void	execute(t_data *data)
@@ -95,12 +100,11 @@ void	execute(t_data *data)
 		res = exec_builtin(data, i);
 		data->pipes[i].pid = 0;
 		if (-1 == res)
-			fork_exec(data, i);
-		else
-			data->cmd_exit_code = res;
+			res = fork_exec(data, i);
+		data->cmd_exit_code = res;
+		if (-1 == res)
+			exit_error("fork_exec failed");
 		i++;
 	}
 	close_pipes(data);
-	// NOTE: assign to exit code
-	// data->cmd_exit_code
 }
