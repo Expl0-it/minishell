@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/08 11:41:41 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/08 11:49:42 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ static void	fork_exec(t_data *data, int i)
 		close_useless_pipes(data, i);
 		handle_redirections(data, i);
 		data->cmd_exit_code = exec_bin(data, i);
+		close(data->pipes[i].fds[1]);
+		if (i != 0)
+			close(data->pipes[i - 1].fds[0]);
+		exit(data->cmd_exit_code);
 	}
 }
 
