@@ -38,6 +38,31 @@ static int	exec_builtin(t_data *data, int i)
 	return (-1);
 }
 
+static int	exec_bin(t_data *data, int i)
+{
+	char	*bin_path;
+	pid_t	pid;
+	int		res;
+
+	bin_path = get_path(data, i);
+	if (NULL == bin_path)
+		return (-1);
+	pid = fork();
+	res = 0;
+	if (0 == pid)
+		res = execve(bin_path, data->pipes[i].cmd, NULL);
+	else if (pid < 0)
+	{
+		free(bin_path);
+		ft_putstr_fd("fork failed", 2);
+		return (-1);
+	}	
+	wait(&res);
+	free(bin_path);
+	data->cmd_exit_code = res;
+	return (res);
+}
+
 void	execute(t_data *data)
 {
 	int	i;
