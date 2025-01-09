@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:34:14 by rdavurov          #+#    #+#             */
-/*   Updated: 2024/12/10 12:41:46 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:38:39 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		parse_input(&data, line);
 		free(line);
+		lexer(&data);
 		// TODO: check pipe & execute
 		// if (true == check_pipe)
 		//		execute(&data);
