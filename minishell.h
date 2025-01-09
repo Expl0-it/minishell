@@ -126,6 +126,9 @@ void	skip_spaces(char **line);
 bool	is_space(char c);
 bool	is_quote(char c);
 
+// lexer
+void	lexer(t_data *data);
+
 // exec
 // exec.c
 void	execute(t_data *data);
