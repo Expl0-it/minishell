@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/08 11:59:01 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:54:42 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	execute(t_data *data)
 			res = fork_exec(data, i);
 		data->cmd_exit_code = res;
 		if (-1 == res)
-			exit_error("fork_exec failed");
+			err_exit(data, "fork_exec failed", EXIT_FAILURE);
 		i++;
 	}
 	close_pipes(data);
