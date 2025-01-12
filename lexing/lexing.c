@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 14:39:01 by codespace         #+#    #+#             */
-/*   Updated: 2025/01/10 12:33:46 by codespace        ###   ########.fr       */
+/*   Updated: 2025/01/12 20:52:34 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,26 @@ int     pipe_count(char **args)
 
 int     cmd_count(char **args)
 {
-    int     count;
     int     i;
 
-    i = 1;
-    count = 1;
-    while (args[i])
-    {
-        if (args[i][0] != '-')
-            break ;
-        count++;
+    i = 0;
+    while (args[i]
+		&& ft_strncmp(args[i], "|", ft_strlen(args[i]))
+		&& ft_strncmp(args[i], "<", ft_strlen(args[i]))
+		&& ft_strncmp(args[i], ">", ft_strlen(args[i]))
+		&& ft_strncmp(args[i], ">>", ft_strlen(args[i]))
+		&& ft_strncmp(args[i], "<<", ft_strlen(args[i])))
         i++;
-    }
-    return (count);
+    return (i);
 }
 
-void	fill_cmd(t_data *data, int j, int i)
+int	fill_cmd(t_data *data, int j, int i)
 {
 	int		c;
 	int		k;
 	
 	k = 0;
+			perror("");	
 	c = cmd_count(&data->args[j]);
 	data->pipes[i].cmd = malloc(sizeof(char *) * (c + 1));
 	while (k < c)
@@ -60,75 +59,69 @@ void	fill_cmd(t_data *data, int j, int i)
 		k++;
 	}
 	data->pipes[i].cmd[k] = NULL;
+	return (c);
 }
 
-void    lexer(t_data *data)
+void initiate_pipe(t_pipes *pipe)
 {
-    int	p;
-    int	i;
-	int j;
+	pipe->infd = 0;
+	pipe->outfd = 0;
+	pipe->pid = 0;
+	pipe->heredoc = false;
+	pipe->invalid_infile = false;
+	pipe->write_mode = REPLACE;
+	pipe->infile = NULL;
+	pipe->outfile = NULL;
+	pipe->limiter = NULL;
+}
 
-    p = pipe_count(data->args);
-    data->pipes = malloc(sizeof(t_pipes) * (p + 1));
-    i = 0;
-	j = 0;
-    while (i < p)
-    {
-        fill_cmd(data, j, i);
-		// maybe skip all flags before this while
-		while (data->args[j] != NULL && ft_strncmp(data->args[j], "|", ft_strlen(data->args[j])) != 0) {
-			// save infd
-			if (ft_strncmp(data->args[j], "<", ft_strlen(data->args[j])) == 0)
-			{
-				// open and close if its not the last one
-				data->pipes[i].infile = ft_strdup(data->args[j + 1]);
-			}
-			else if (ft_strncmp(data->args[j], ">", ft_strlen(data->args[j])) == 0)
-			{
-				// open and close if its not the last one
-				// check if we need to append or replace
-				// set write_mode
-				data->pipes[i].outfile = ft_strdup(data->args[j + 1]);
-			}
-			// save heredoc
-			else if (ft_strncmp(data->args[j], "<<", ft_strlen(data->args[j])) == 0)
-			{
-				data->pipes[i].limiter = ft_strdup(data->args[j + 1]);
-				data->pipes[i].heredoc = true;
-			}
-			// invalid infile, check if it exists and permissions
-			// fds
-			// pid
-			else if (ft_strncmp(data->args[j], "|", ft_strlen(data->args[j])) == 0)
-			{
-				// open pipe
-				pipe(data->pipes[i].fds); // ??
-			}
-
+void	lexer(t_data *data)
+{
+	int p = pipe_count(data->args);
+	int j = 0;
+	int c;
+	data->pipes = malloc(sizeof(t_pipes *) * (p + 1));
+	for (int i = 0; i < p; i++)
+	{
+		initiate_pipe(&data->pipes[i]);
+		c = fill_cmd(data, i, j);		
+		while (j < c * (i + 1))
+			j++;
+		while (data->args[j] != NULL && ft_strncmp(data->args[j], "|", ft_strlen(data->args[j])) != 0)
+		{
+			// if (ft_strncmp(data->args[j], "<", ft_strlen(data->args[j])) == 0)
+			// {
+			// 	data->pipes[i].infd = open(data->args[j + 1], O_RDONLY);
+			// 	if (data->pipes[i].infile)
+			// 		close(data->pipes[i].infd);
+			// 	data->pipes[i].infile = ft_strdup(data->args[j + 1]);
+			// }
+			// else if (ft_strncmp(data->args[j], ">", 1) == 0)
+			// {
+			// 	int		flag;
+				
+			// 	flag = O_TRUNC;
+			// 	data->pipes[i].write_mode = REPLACE;
+			// 	if (ft_strncmp(data->args[j], ">>", 2) == 0)
+			// 	{
+			// 		flag = O_APPEND;
+			// 		data->pipes[i].write_mode = APPEND;
+			// 	}
+			// 	data->pipes[i].outfd = open(data->args[j + 1], O_WRONLY | O_CREAT | flag, 0644);
+			// 	if (data->pipes[i].outfile)
+			// 		close(data->pipes[i].outfd);
+			// 	data->pipes[i].outfile = ft_strdup(data->args[j + 1]);
+			// }
+			// else if (ft_strncmp(data->args[j], "<<", ft_strlen(data->args[j])) == 0)
+			// {
+			// 	data->pipes[i].limiter = ft_strdup(data->args[j + 1]);
+			// 	data->pipes[i].heredoc = true;
+			// }
 			j++;
 		}
-		if (data->args[j] != NULL)
-			j++;
-		
-		// print cmds
-		for (int x = 0; data->pipes[i].cmd[x] != NULL; x++)
-			printf("cmd: %s\n", data->pipes[i].cmd[x]);
-
-		i++;
-	}    
+		// for (int x = 0; data->pipes[i].cmd[x] != NULL; x++)
+		// {
+		// 	printf("cmd: %s\n", data->pipes[i].cmd[x]);
+		// }
+	}
 }
-
-// typedef struct s_pipes
-// {
-// 	char			**cmd; // cmd + arg (like: [ls, -R -la, NULL] or [echo, -n, NULL] or [pwd, NULL])
-// 	char			*limiter; // when using heredoc: << limiter || else NULL
-// 	char			*infile; // NOTE: those should be also helpful to you to handle opening the files and put fds to struct
-// 	char			*outfile; // NOTE: those should be also helpful to you to handle opening the files and put fds to struct
-// 	int				fds[2];
-// 	int				infd; // when redirecting input < infile
-// 	int				outfd; // when redirecting output > outfile
-// 	pid_t			pid; // current proccess pid
-// 	bool			heredoc; // do we use heredoc (input redirection "<<")
-// 	bool			invalid_infile; // does the infile exist and do we have premissions to it?
-// 	t_write_mode	write_mode; // do we use replace ">" or append ">>" file's contents with output redirection
-// }			t_pipes;

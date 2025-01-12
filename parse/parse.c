@@ -140,7 +140,7 @@ void	parse_input(t_data *data, char *line)
 			process_quoted_arg(env, &line, NULL, NULL);
 		else
 			line += process_arg(NULL, line, NULL);
-		printf("arg[%d]: %s\n", i, data->args[i]);
+		// printf("arg[%d]: %s\n", i, data->args[i]);
 		skip_spaces(&line);
 		i++;
 	}
