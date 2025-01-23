@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/08 14:54:42 by codespace        ###   ########.fr       */
+/*   Updated: 2025/01/23 12:22:32 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	execute(t_data *data)
 
 	i = 0;
 	open_pipes(data);
-	while (data->pipes[i].cmd)
+	while (NULL != data->pipes[i].cmd)
 	{
 		res = exec_builtin(data, i);
 		data->pipes[i].pid = 0;
