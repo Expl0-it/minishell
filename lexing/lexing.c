@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 14:39:01 by codespace         #+#    #+#             */
-/*   Updated: 2025/01/12 20:52:34 by codespace        ###   ########.fr       */
+/*   Updated: 2025/01/23 12:29:08 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ void	lexer(t_data *data)
 	int p = pipe_count(data->args);
 	int j = 0;
 	int c;
-	data->pipes = malloc(sizeof(t_pipes *) * (p + 1));
+	// NOTE: WHEN ALLOCATING WITH CALLOC IT DOESNT SEGFAULT ANYMORE
+	data->pipes = ft_calloc(p + 1, sizeof(t_pipes));
+	/*data->pipes = malloc(sizeof(t_pipes *) * (p + 1));*/
 	for (int i = 0; i < p; i++)
 	{
 		initiate_pipe(&data->pipes[i]);
