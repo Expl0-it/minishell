@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:34:14 by rdavurov          #+#    #+#             */
-/*   Updated: 2025/01/12 20:28:16 by codespace        ###   ########.fr       */
+/*   Updated: 2025/01/23 12:15:02 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int	main(int argc, char **argv, char **envp)
 		// if (true == check_pipe)
 				execute(&data);
 		// cleanup
+		cleanup_req(&data);
 	}
 }
