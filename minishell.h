@@ -57,6 +57,7 @@ typedef struct s_pipes
 	int				fds[2];
 	int				infd; // when redirecting input < infile
 	int				outfd; // when redirecting output > outfile
+	int 			old_outfd;
 	pid_t			pid; // current proccess pid
 	bool			heredoc; // do we use heredoc (input redirection "<<")
 	bool			invalid_infile; // does the infile exist and do we have premissions to it?
