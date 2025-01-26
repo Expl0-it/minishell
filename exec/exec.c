@@ -6,11 +6,42 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/23 12:22:32 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/26 20:34:00 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// DON'T DELETE THIS COMMENTED CODE
+// static int   exec_builtin(t_data *data, int i)
+// {
+//  char    **args;
+//   int     len;
+//  int ret;
+//  ret = -1;
+//   args = data->pipes[i].cmd;
+
+//  if (NULL == args || NULL == args[0])
+//       return (ret); // NOTE: for safety but dunno if I shall do something else
+//  len = ft_strlen(args[0]);
+//   if (0 == ft_strncmp("echo", args[0], len + 1))
+//      ret = ft_echo(args);
+// 	  if (0 == ft_strncmp("cd", args[0], len + 1))
+//      ret = ft_cd(data, args);
+// 	  if (0 == ft_strncmp("pwd", args[0], len + 1))
+//      ret = ft_pwd();
+// 	  if (0 == ft_strncmp("export", args[0], len + 1))
+//      ret = ft_export(data, args);
+// 	  if (0 == ft_strncmp("unset", args[0], len + 1))
+//      ret = ft_unset(data, args);
+// 	  if (0 == ft_strncmp("env", args[0], len + 1))
+//      ret = ft_env(data);
+// 	  if (0 == ft_strncmp("exit", args[0], len + 1))
+//      ret = ft_exit(data, args);
+//  if (data->pipes[i].old_outfd != -1)
+//       dup2(data->pipes[i].old_outfd, STDOUT_FILENO);
+//  return (ret);
+// }
 
 static int	exec_builtin(t_data *data, int i)
 {
