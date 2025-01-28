@@ -6,11 +6,24 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/28 12:11:08 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/28 12:40:15 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static	int await_all_processes(t_data *data)
+{
+	int	i;
+	int	exit_status;
+
+	i = -1;
+	while (NULL != data->pipes[++i].cmd)
+		wait(&exit_status);
+	if (data->pipes[i - 1].pid == 0)
+		return (data->cmd_exit_code);
+	return (exit_status);
+}
 
 static int	exec_builtin(t_data *data, int i)
 {
@@ -95,8 +108,6 @@ static int	exec_bin(t_data *data, int i)
 		if (-1 == res)
 			return (-1);
 	}
-	// FIX: it hangs on second pipe right here (so: ls | grep mini     --> hangs on grep)
-	// it probably is waiting for more to read and i have no idea why ;-;
 	wait(&res);
 	free(bin_path);
 	data->cmd_exit_code = res;
@@ -106,9 +117,7 @@ static int	exec_bin(t_data *data, int i)
 static int	fork_exec(t_data *data, int i)
 {
 	t_pipes	*cur_pipe;
-	int		res;
 
-	res = -1;
 	cur_pipe = &data->pipes[i];
 	cur_pipe->pid = fork();
 	if (-1 == cur_pipe->pid)
@@ -116,6 +125,7 @@ static int	fork_exec(t_data *data, int i)
 	if (0 == cur_pipe->pid)
 	{
 		close_useless_pipes(data, i);
+		close(data->pipes[i - 1].fds[1]);
 		handle_redirections(data, i);
 		data->cmd_exit_code = exec_bin(data, i);
 		if (i != 0)
@@ -123,9 +133,7 @@ static int	fork_exec(t_data *data, int i)
 		close(cur_pipe->fds[1]);
 		exit(data->cmd_exit_code);
 	}
-	wait(&res);
-	data->cmd_exit_code = res;
-	return (res);
+	return (0);
 }
 
 void	execute(t_data *data)
@@ -140,20 +148,10 @@ void	execute(t_data *data)
 		res = exec_builtin(data, i);	
 		data->pipes[i].pid = 0;
 		if (-1 == res)
-			res = fork_exec(data, i);
-
-					
-		// NOTE: We should reset our new outputfd to stdout
-		// (it's working for multiple echo commands in different pipes (and it works like in bash))
-		// but multiple pipes in prompts like "ls | grep minishell" prints ls output without grepping it and stays in infinite loop
-		if (data->pipes[i].old_outfd != -1)
-			dup2(data->pipes[i].old_outfd, STDOUT_FILENO);
-
-
+			fork_exec(data, i);
 		data->cmd_exit_code = res;
-		if (-1 == res)
-			err_exit(data, "fork_exec failed", EXIT_FAILURE);
 		i++;
 	}
 	close_pipes(data);
+	data->cmd_exit_code = await_all_processes(data);
 }
