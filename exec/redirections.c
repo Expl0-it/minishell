@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/27 20:04:22 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:40:45 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ static void	redirect_output(t_data *data, int i)
 
 void	handle_redirections(t_data *data, int i)
 {
-	redirect_input(data, i);
 	redirect_output(data, i);
+	redirect_input(data, i);
 }
