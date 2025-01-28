@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 14:31:12 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/24 11:34:38 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:45:47 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	open_pipes(t_data *data)
 	while (NULL != data->pipes && NULL != data->pipes[i].cmd)
 	{
 		curr = &data->pipes[i];
-		curr->fds[0] = curr->infd;
-		curr->fds[1] = curr->outfd;
 		if (pipe(curr->fds) < 0)
 			err_exit(data, "pipe failure\n", PIPE_ERR);
 		i++;
