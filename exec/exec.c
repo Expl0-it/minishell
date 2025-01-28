@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/28 12:40:15 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/28 12:54:29 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ static int	fork_exec(t_data *data, int i)
 	if (0 == cur_pipe->pid)
 	{
 		close_useless_pipes(data, i);
-		close(data->pipes[i - 1].fds[1]);
 		handle_redirections(data, i);
 		data->cmd_exit_code = exec_bin(data, i);
 		if (i != 0)
