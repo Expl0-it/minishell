@@ -73,6 +73,7 @@ typedef struct s_data
 	char	**args;
 	char	*flags;
 	char	*cmd;
+	char	**envp;
 }   t_data;
 
 // utils
