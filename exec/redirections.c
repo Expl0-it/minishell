@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/28 11:40:45 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/28 12:17:01 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,12 @@ static void	redirect_input(t_data *data, int i)
 	t_pipes *curr;
 
 	curr = &data->pipes[i];
-	if (0 == curr->pid)
-	{	
 		if (true == curr->heredoc && NULL != curr->limiter)
 			handle_heredoc(curr);
 		if (curr->infd != STDIN_FILENO)
 			dup2(curr->infd, STDIN_FILENO);
 		else if (0 < i)
 			dup2(data->pipes[i - 1].fds[0], STDIN_FILENO);
-	}
-	/*else*/
-	/*	if (i > 0)*/
-	/*		dup2(data->pipes[i - 1].fds[0], STDIN_FILENO);*/
 }
 
 static void	redirect_output(t_data *data, int i)
