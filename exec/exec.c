@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/27 16:42:13 by codespace        ###   ########.fr       */
+/*   Updated: 2025/01/28 12:11:08 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,20 @@ static int	exec_bin(t_data *data, int i)
 	if (NULL == bin_path)
 		return (-1);
 	pid = fork();
-	res = 0;
-	if (0 == pid)
-		res = execve(bin_path, data->pipes[i].cmd, NULL);
-	else if (pid < 0)
+	if (pid < 0)
 	{
 		free(bin_path);
 		ft_putstr_fd("fork failed", 2);
 		return (-1);
 	}	
+	if (0 == pid)
+	{
+		res = execve(bin_path, data->pipes[i].cmd, data->envp);
+		if (-1 == res)
+			return (-1);
+	}
+	// FIX: it hangs on second pipe right here (so: ls | grep mini     --> hangs on grep)
+	// it probably is waiting for more to read and i have no idea why ;-;
 	wait(&res);
 	free(bin_path);
 	data->cmd_exit_code = res;
@@ -113,9 +118,9 @@ static int	fork_exec(t_data *data, int i)
 		close_useless_pipes(data, i);
 		handle_redirections(data, i);
 		data->cmd_exit_code = exec_bin(data, i);
-		close(data->pipes[i].fds[1]);
 		if (i != 0)
 			close(data->pipes[i - 1].fds[0]);
+		close(cur_pipe->fds[1]);
 		exit(data->cmd_exit_code);
 	}
 	wait(&res);
