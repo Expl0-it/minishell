@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/28 12:17:01 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:20:23 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ static bool	read_heredoc(t_pipes *curr, int fd, char *input)
 		input = readline("> ");
 		if (NULL == input)
 			return (false);
-		if (ft_strncmp(curr->limiter, input, ft_strlen(curr->limiter) + 1))
+		// u had a small bug here
+		// if (ft_strncmp(curr->limiter, input, ft_strlen(curr->limiter) + 1))
+		if (!ft_strncmp(curr->limiter, input, ft_strlen(curr->limiter) + 1))
 		{
 			free(input);
 			break ;
