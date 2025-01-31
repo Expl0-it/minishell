@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/28 12:54:29 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:20:33 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,41 +50,6 @@ static int	exec_builtin(t_data *data, int i)
 		return (ft_exit(data, args));
 	return (-1);
 }
-
-// DON'T DELETE THIS COMMENTED CODE
-// static int	exec_builtin(t_data *data, int i)
-// {
-// 	char	**args;
-// 	int		len;
-// 	int ret;
-
-// 	ret = -1;
-// 	args = data->pipes[i].cmd;
-
-
-// 	if (NULL == args || NULL == args[0])
-// 		return (ret); // NOTE: for safety but dunno if I shall do something else
-// 	len = ft_strlen(args[0]);
-// 	if (0 == ft_strncmp("echo", args[0], len + 1))
-// 		ret = ft_echo(args);
-// 	if (0 == ft_strncmp("cd", args[0], len + 1))
-// 		ret = ft_cd(data, args);
-// 	if (0 == ft_strncmp("pwd", args[0], len + 1))
-// 		ret = ft_pwd();
-// 	if (0 == ft_strncmp("export", args[0], len + 1))
-// 		ret = ft_export(data, args);
-// 	if (0 == ft_strncmp("unset", args[0], len + 1))
-// 		ret = ft_unset(data, args);
-// 	if (0 == ft_strncmp("env", args[0], len + 1))
-// 		ret = ft_env(data);
-// 	if (0 == ft_strncmp("exit", args[0], len + 1))
-// 		ret = ft_exit(data, args);
-
-// 	if (data->pipes[i].old_outfd != -1)
-// 		dup2(data->pipes[i].old_outfd, STDOUT_FILENO);
-
-// 	return (ret);
-// }
 
 static int	exec_bin(t_data *data, int i)
 {
@@ -141,13 +106,18 @@ void	execute(t_data *data)
 	int	res;
 
 	i = 0;
+		
 	open_pipes(data);
 	while (NULL != data->pipes[i].cmd)
 	{
 		res = exec_builtin(data, i);	
 		data->pipes[i].pid = 0;
+		if (data->pipes[i].old_outfd != -1)
+			dup2(data->pipes[i].old_outfd, STDOUT_FILENO);	
 		if (-1 == res)
 			fork_exec(data, i);
+		if (data->pipes[i].old_outfd != -1)
+			dup2(data->pipes[i].old_outfd, STDOUT_FILENO);
 		data->cmd_exit_code = res;
 		i++;
 	}
