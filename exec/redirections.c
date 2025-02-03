@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/31 20:20:23 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/02 20:36:26 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	read_heredoc(t_pipes *curr, int fd, char *input)
 {
 	while (1)
 	{
-		input = readline("> ");
+		input = readline("heredoc> ");
 		if (NULL == input)
 			return (false);
 		// u had a small bug here
