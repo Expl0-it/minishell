@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/31 20:20:33 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/03 11:39:43 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,12 @@ void	execute(t_data *data)
 	{
 		res = exec_builtin(data, i);	
 		data->pipes[i].pid = 0;
-		if (data->pipes[i].old_outfd != -1)
-			dup2(data->pipes[i].old_outfd, STDOUT_FILENO);	
 		if (-1 == res)
 			fork_exec(data, i);
-		if (data->pipes[i].old_outfd != -1)
-			dup2(data->pipes[i].old_outfd, STDOUT_FILENO);
 		data->cmd_exit_code = res;
 		i++;
+		if (data->pipes[i].old_outfd != -1)
+			dup2(data->pipes[i].old_outfd, STDOUT_FILENO);	
 	}
 	close_pipes(data);
 	data->cmd_exit_code = await_all_processes(data);
