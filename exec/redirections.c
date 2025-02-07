@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/02 20:36:26 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:23:09 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,15 @@ static void	redirect_output(t_data *data, int i)
 
 	curr = &data->pipes[i];
 	if (STDOUT_FILENO != curr->outfd)
-		dup2(curr->outfd, STDOUT_FILENO);
+	{
+		if (STDOUT_FILENO != curr->outfd) {
+			if (REPLACE == curr->write_mode)
+				curr->outfd = open(curr->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			else
+				curr->outfd = open(curr->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			dup2(curr->outfd, STDOUT_FILENO);
+		}
+	}
 	else if (NULL != data->pipes[i + 1].cmd)
 		dup2(curr->fds[1], STDOUT_FILENO);
 
