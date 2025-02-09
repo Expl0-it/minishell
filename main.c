@@ -6,21 +6,21 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:34:14 by rdavurov          #+#    #+#             */
-/*   Updated: 2025/01/28 10:10:43 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:03:56 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main()
 {
-	t_data	data;
-	char	*line;
+	t_data		data;
+	char		*line;
+	extern char	**environ;
 
-	((void)argc, (void)argv);
-	data.envp = envp;
+	data.envp = environ;
 	init_signals();
-	if (EXIT_FAILURE == init_env(&data, envp))
+	if (EXIT_FAILURE == init_env(&data, environ))
 		exit(EXIT_FAILURE);
 	while (true)
 	{
