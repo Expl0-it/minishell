@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/07 11:23:09 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/11 12:17:00 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,15 @@ static bool	read_heredoc(t_pipes *curr, int fd, char *input)
 {
 	while (1)
 	{
-		input = readline("heredoc> ");
+		input = get_next_line(STDIN_FILENO);
 		if (NULL == input)
 			return (false);
-		// u had a small bug here
-		// if (ft_strncmp(curr->limiter, input, ft_strlen(curr->limiter) + 1))
-		if (!ft_strncmp(curr->limiter, input, ft_strlen(curr->limiter) + 1))
+		if (!ft_strncmp(curr->limiter, input, ft_strlen(curr->limiter)))
 		{
 			free(input);
 			break ;
 		}
-		ft_putendl_fd(input, fd);
+		ft_putstr_fd(input, fd);
 		free(input);
 	}
 	return (true);
