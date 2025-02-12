@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/07 11:16:01 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/12 16:30:50 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	exec_builtin(t_data *data, int i)
 	if (0 == ft_strncmp("env", args[0], len + 1))
 		return (ft_env(data));
 	if (0 == ft_strncmp("exit", args[0], len + 1))
-		return (ft_exit(data, args));
+		return (ft_exit(data, args, i));
 	return (-1);
 }
 
