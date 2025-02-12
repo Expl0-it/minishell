@@ -13,7 +13,8 @@ static short	process_env(t_env *env, char **line, char **arg)
 		if (!ft_strncmp(current->key, *line, ft_strlen(current->key)))
 		{
 			if (*arg)
-				*arg += ft_strlcpy(*arg, current->val, ft_strlen(current->val) + 1);
+				*arg += ft_strlcpy(*arg, current->val, \
+			ft_strlen(current->val) + 1);
 			*line += ft_strlen(current->key);
 			n += ft_strlen(current->val);
 			break ;
@@ -23,7 +24,8 @@ static short	process_env(t_env *env, char **line, char **arg)
 	return (n);
 }
 
-static short	process_quoted_arg(t_env *env, char **line, short *count, char *arg)
+static short	process_quoted_arg(t_env *env, char **line, \
+			short *count, char *arg)
 {
 	short	n;
 	char	quote;
@@ -72,11 +74,11 @@ static short	process_arg(t_env *env, char *line, char *arg)
 
 static short	count_args(char *line)
 {
-    short   count;
+	short   count;
 
 	count = 0;
-    while (*line)
-    {
+	while (*line)
+	{
 		if (is_quote(*line))
 			process_quoted_arg(NULL, &line, &count, NULL);
 		else if (is_space(*line))
@@ -91,9 +93,10 @@ static short	count_args(char *line)
 			if (is_quote(*line) || !*line)
 				count++;
 		}
-    }
+	}
 	return (count);
 }
+
 // put it into another file for norminette
 void	check_unclosed_quotes(char *line)
 {
@@ -128,7 +131,7 @@ void	parse_input(t_data *data, char *line)
 	check_unclosed_quotes(line);
 	env = data->env;
 	n = count_args(line);
-    data->args = malloc(sizeof(char *) * (n + 1));
+	data->args = malloc(sizeof(char *) * (n + 1));
 	data->args[n] = NULL;
 	i = 0;
 	while (i < n)
@@ -141,7 +144,6 @@ void	parse_input(t_data *data, char *line)
 			process_quoted_arg(env, &line, NULL, NULL);
 		else
 			line += process_arg(NULL, line, NULL);
-		// printf("arg[%d]: %s\n", i, data->args[i]);
 		skip_spaces(&line);
 		i++;
 	}
