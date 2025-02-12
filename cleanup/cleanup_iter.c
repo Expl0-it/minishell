@@ -14,6 +14,7 @@ static void	cleanup_pipes_s(t_data *data)
 		i++;
 	}
 	free_str_arr(data->args, -1);
+	free(data->pipes);
 }
 
 void	cleanup_iter(t_data *data)
