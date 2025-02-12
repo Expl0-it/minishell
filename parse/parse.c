@@ -74,6 +74,7 @@ static short	count_args(char *line)
 {
     short   count;
 
+	count = 0;
     while (*line)
     {
 		if (is_quote(*line))

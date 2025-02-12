@@ -132,9 +132,10 @@ bool	is_quote(char c);
 // lexer
 void	lexer(t_data *data);
 
-void set_append(char **args, int j, t_pipes *pipe);
-void set_heredoc(t_pipes *pipe, char *arg);
-void set_redirection(char **args, int j, t_pipes *pipe);
+void	set_append(char **args, int j, t_pipes *pipe);
+void	set_heredoc(t_pipes *pipe, char *arg);
+void	set_redirection(char **args, int j, t_pipes *pipe);
+void	set_operators(char **args, int *i, t_pipes *pipe);
 // exec
 // exec.c
 void	execute(t_data *data);
