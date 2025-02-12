@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:21:42 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/12 16:35:40 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:39:58 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_exit(t_data *data, char **args, int i)
 	}
 	else
 		data->exit_code = (uint8_t)ft_atoi(args[1]);
-	if (NULL == data->pipes[i + 1].cmd)
+	if (NULL == data->pipes[i + 1].cmd && 0 == i)
 	{
 		cleanup_iter(data);
 		cleanup_exit(data);
