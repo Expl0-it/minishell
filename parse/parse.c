@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/12 17:17:03 by mamichal          #+#    #+#             */
+/*   Updated: 2025/02/12 17:18:08 by mamichal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static short	process_env(t_env *env, char **line, char **arg)
@@ -74,7 +86,7 @@ static short	process_arg(t_env *env, char *line, char *arg)
 
 static short	count_args(char *line)
 {
-	short   count;
+	short	count;
 
 	count = 0;
 	while (*line)
@@ -125,7 +137,7 @@ void	parse_input(t_data *data, char *line)
 {
 	t_env	*env;
 	short	i;
-	short   n;
+	short	n;
 	short	m;
 
 	check_unclosed_quotes(line);
