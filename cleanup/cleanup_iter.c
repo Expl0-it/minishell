@@ -16,7 +16,7 @@ static void	cleanup_pipes_s(t_data *data)
 	free_str_arr(data->args, -1);
 }
 
-void	cleanup_req(t_data *data)
+void	cleanup_iter(t_data *data)
 {
 	cleanup_pipes_s(data);
 }

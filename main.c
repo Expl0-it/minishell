@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:34:14 by rdavurov          #+#    #+#             */
-/*   Updated: 2025/02/09 19:03:56 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:43:23 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int	main()
 		// if (true == check_pipe)
 				execute(&data);
 		// cleanup
-		cleanup_req(&data);
+		cleanup_iter(&data);
 	}
 }

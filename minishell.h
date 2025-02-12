@@ -148,7 +148,7 @@ void	handle_redirections(t_data *data, int i);
 // paths.c
 char	*get_path(t_data *data, int i);
 
-// clenup_req.c
-void	cleanup_req(t_data *data);
+// clenup_iter.c
+void	cleanup_iter(t_data *data);
 
 #endif
