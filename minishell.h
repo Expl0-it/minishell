@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:43:42 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/12 16:43:53 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:49:30 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # ifndef PATH_LEN
-# define PATH_MAX 4096
+#  define PATH_MAX 4096
 # endif
 
 # include <stdio.h>
@@ -52,7 +52,7 @@ typedef enum e_write_mode
 	APPEND,
 }			t_write_mode;
 
-// NOTE: a struct to contain enviromental variables where 'key'='value' (type export in bash to see)
+// NOTE: contain enviromental variables where 'key'='value'
 typedef struct	s_env
 {
 	char		*key;
@@ -60,21 +60,20 @@ typedef struct	s_env
 	struct s_env	*next;
 }   t_env;
 
-// NOTE: basically that is how I would like parsing for piping to be done, we would do an array of those structs for every pipe
 typedef struct s_pipes
 {
-	char			**cmd; // cmd + arg (like: [ls, -R -la, NULL] or [echo, -n, NULL] or [pwd, NULL])
-	char			*limiter; // when using heredoc: << limiter || else NULL
-	char			*infile; // NOTE: those should be also helpful to you to handle opening the files and put fds to struct
-	char			*outfile; // NOTE: those should be also helpful to you to handle opening the files and put fds to struct
+	char			**cmd;
+	char			*limiter;
+	char			*infile;
+	char			*outfile;
 	int				fds[2];
-	int				infd; // when redirecting input < infile
-	int				outfd; // when redirecting output > outfile
+	int				infd;
+	int				outfd;
 	int 			old_outfd;
-	pid_t			pid; // current proccess pid
-	bool			heredoc; // do we use heredoc (input redirection "<<")
-	bool			invalid_infile; // does the infile exist and do we have premissions to it?
-	t_write_mode	write_mode; // do we use replace ">" or append ">>" file's contents with output redirection
+	pid_t			pid;
+	bool			heredoc;
+	bool			invalid_infile;
+	t_write_mode	write_mode;
 }			t_pipes;
 
 typedef struct s_data
