@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:43:42 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/12 16:49:30 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:09:49 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ typedef enum e_write_mode
 }			t_write_mode;
 
 // NOTE: contain enviromental variables where 'key'='value'
-typedef struct	s_env
+typedef struct s_env
 {
-	char		*key;
-	char		*val;
+	char			*key;
+	char			*val;
 	struct s_env	*next;
-}   t_env;
+}				t_env;
 
 typedef struct s_pipes
 {
@@ -69,7 +69,7 @@ typedef struct s_pipes
 	int				fds[2];
 	int				infd;
 	int				outfd;
-	int 			old_outfd;
+	int				old_outfd;
 	pid_t			pid;
 	bool			heredoc;
 	bool			invalid_infile;
@@ -86,7 +86,7 @@ typedef struct s_data
 	char	*flags;
 	char	*cmd;
 	char	**envp;
-}   t_data;
+}			t_data;
 
 // utils
 // free_arr.c
@@ -109,7 +109,7 @@ int		ft_export(t_data *data, char **args);
 int		ft_cd(t_data *data, char **args);
 
 // env
-int	init_env(t_data *data, char **envp); //changed to t_data *data
+int		init_env(t_data *data, char **envp); //changed to t_data *data
 // modify_env.c
 bool	overwrite_env_var(t_env *overwrite, char **split);
 bool	set_env_var(t_env *env, char *key, char *val);
@@ -135,7 +135,7 @@ void	init_signals(void);
 
 // parser
 void	parse_input(t_data *data, char *line);
-void    parse_env(t_data *data);
+void	parse_env(t_data *data);
 void	skip_spaces(char **line);
 bool	is_space(char c);
 bool	is_quote(char c);
