@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 18:34:14 by rdavurov          #+#    #+#             */
-/*   Updated: 2025/02/12 15:43:23 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:43:32 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main()
+int	main(void)
 {
 	t_data		data;
 	char		*line;
@@ -26,7 +26,7 @@ int	main()
 	{
 		line = readline("[minishell]$ ");
 		if (NULL == line)
-			break;
+			break ;
 		if (!*line)
 		{
 			free(line);
@@ -36,11 +36,7 @@ int	main()
 		parse_input(&data, line);
 		free(line);
 		lexer(&data);
-		// TODO: check pipe & execute
-		perror("execute");
-		// if (true == check_pipe)
-				execute(&data);
-		// cleanup
+		execute(&data);
 		cleanup_iter(&data);
 	}
 }

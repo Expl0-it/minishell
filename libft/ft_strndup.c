@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 21:14:42 by msmajdor          #+#    #+#             */
-/*   Updated: 2025/01/04 21:42:27 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/12 16:45:10 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strndup(const char *s1, size_t n)
 	{
 		dest[i] = s1[i];
 		i++;
-    }
+	}
 	dest[i] = 0;
 	return (dest);
 }
