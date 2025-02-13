@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:16:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/04 21:03:04 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:18:06 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char	*join_paths(char *p1, char *p2)
 
 static bool	bin_is_executable(struct stat bin_stat)
 {
-	if ((bin_stat.st_mode > 0) && (S_IEXEC & bin_stat.st_mode) && S_ISREG(bin_stat.st_mode))
+	if ((bin_stat.st_mode > 0) && (S_IEXEC & bin_stat.st_mode) \
+		&& S_ISREG(bin_stat.st_mode))
 	{
 		if (bin_stat.st_mode & S_IXUSR)
 			return (true);

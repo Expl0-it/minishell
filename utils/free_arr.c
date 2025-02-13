@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:04:16 by mamichal          #+#    #+#             */
-/*   Updated: 2025/01/23 11:54:00 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:17:29 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ void	free_str_arr(char **arr, int to_be_freed)
 
 	i = -1;
 	if (to_be_freed < 0)
+	{
 		while (NULL != arr[++i])
 		{
 			free(arr[i]);
 			arr[i] = NULL;
 		}
+
+	}
 	else
 		while (++i < to_be_freed)
 		{
@@ -43,11 +46,13 @@ void	free_2d_str_arr(char ***arr, int to_be_freed)
 
 	i = -1;
 	if (to_be_freed < 0)
+	{
 		while (arr[++i])
 		{
 			free_str_arr(arr[i], -1);
 			arr[i] = NULL;
 		}
+	}
 	else
 		while (++i < to_be_freed)
 		{

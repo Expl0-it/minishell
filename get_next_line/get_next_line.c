@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:00:55 by mamichal          #+#    #+#             */
-/*   Updated: 2024/06/03 15:30:49 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:14:56 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ static void	clear_list_till_nl(t_str_list **list)
 {
 	t_str_list	*last_node;
 	t_str_list	*clean_node;
-	int		i_con;
-	int		i_buf;
-	char	*buf;
+	int			i_con;
+	int			i_buf;
+	char		*buf;
 
 	buf = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (NULL == buf)
@@ -97,7 +97,7 @@ static void	clear_list_till_nl(t_str_list **list)
 char	*get_next_line(int fd)
 {
 	static t_str_list	*list = NULL;
-	char			*next_line;
+	char				*next_line;
 
 	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, &next_line, 0) < 0)
 		return (NULL);

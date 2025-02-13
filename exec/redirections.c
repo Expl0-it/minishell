@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/11 12:17:00 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:20:44 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static bool	read_heredoc(t_pipes *curr, int fd, char *input)
 
 static bool	handle_heredoc(t_pipes *curr)
 {
-	int	fd;
-	char *input;
+	int		fd;
+	char	*input;
 
 	input = NULL;
 	fd = open(".heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -50,29 +50,32 @@ static bool	handle_heredoc(t_pipes *curr)
 
 static void	redirect_input(t_data *data, int i)
 {
-	t_pipes *curr;
+	t_pipes	*curr;
 
 	curr = &data->pipes[i];
-		if (true == curr->heredoc && NULL != curr->limiter)
-			handle_heredoc(curr);
-		if (curr->infd != STDIN_FILENO)
-			dup2(curr->infd, STDIN_FILENO);
-		else if (0 < i)
-			dup2(data->pipes[i - 1].fds[0], STDIN_FILENO);
+	if (true == curr->heredoc && NULL != curr->limiter)
+		handle_heredoc(curr);
+	if (curr->infd != STDIN_FILENO)
+		dup2(curr->infd, STDIN_FILENO);
+	else if (0 < i)
+		dup2(data->pipes[i - 1].fds[0], STDIN_FILENO);
 }
 
 static void	redirect_output(t_data *data, int i)
 {
-	t_pipes *curr;
+	t_pipes	*curr;
 
 	curr = &data->pipes[i];
 	if (STDOUT_FILENO != curr->outfd)
 	{
-		if (STDOUT_FILENO != curr->outfd) {
+		if (STDOUT_FILENO != curr->outfd)
+		{
 			if (REPLACE == curr->write_mode)
-				curr->outfd = open(curr->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				curr->outfd = open(curr->outfile, \
+					O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			else
-				curr->outfd = open(curr->outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+				curr->outfd = open(curr->outfile, \
+					O_WRONLY | O_CREAT | O_APPEND, 0644);
 			dup2(curr->outfd, STDOUT_FILENO);
 		}
 	}

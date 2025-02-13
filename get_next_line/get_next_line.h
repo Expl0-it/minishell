@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 12:01:06 by mamichal          #+#    #+#             */
-/*   Updated: 2024/06/03 15:30:25 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/13 12:15:41 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 // linked list to hold file content
 typedef struct s_str_list
 {
-	char			*content;
+	char				*content;
 	struct s_str_list	*next;
 }			t_str_list;
 
@@ -39,15 +39,15 @@ typedef struct s_str_list
  * @return Content of a single line from fd (including the \n character) or
  * NULL on error or if there is nothing left to be read
  */
-char	*get_next_line(int fd);
+char		*get_next_line(int fd);
 //void	alloc_list(t_list **list, int fd);
-int		found_nl(t_str_list *list);
+int			found_nl(t_str_list *list);
 //void	list_append(t_list **list, char *buf);
 //char	*get_line(t_list *list);
-int		len_to_nl(t_str_list *list);
-void	copy_content_to_nl(t_str_list *list, char *line);
+int			len_to_nl(t_str_list *list);
+void		copy_content_to_nl(t_str_list *list, char *line);
 t_str_list	*ft_str_lstlast(t_str_list *lst);
 //void	clear_list_till_nl(t_list **list);
-void	dealloc_list(t_str_list **list, t_str_list *clean_node, char *buf);
+void		dealloc_list(t_str_list **list, t_str_list *clean_node, char *buf);
 
 #endif
