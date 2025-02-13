@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:04:16 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/13 13:12:03 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:14:50 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	free_str_arr(char **arr, int to_be_freed)
 			free(arr[i]);
 			arr[i++] = NULL;
 		}
-
 	}
 	else
+	{
 		while (i < to_be_freed)
 		{
 			if (NULL != arr[i])
@@ -35,6 +35,7 @@ void	free_str_arr(char **arr, int to_be_freed)
 				arr[i++] = NULL;
 			}
 		}
+	}
 	free(arr);
 	arr = NULL;
 }
@@ -54,6 +55,7 @@ void	free_2d_str_arr(char ***arr, int to_be_freed)
 		}
 	}
 	else
+	{
 		while (i < to_be_freed)
 		{
 			if (arr[i])
@@ -62,6 +64,7 @@ void	free_2d_str_arr(char ***arr, int to_be_freed)
 				arr[i++] = NULL;
 			}
 		}
+	}
 	free(arr);
 	arr = NULL;
 }

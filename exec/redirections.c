@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 09:09:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/13 12:20:44 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:15:23 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ static void	redirect_output(t_data *data, int i)
 	}
 	else if (NULL != data->pipes[i + 1].cmd)
 		dup2(curr->fds[1], STDOUT_FILENO);
-
 }
 
 void	handle_redirections(t_data *data, int i)

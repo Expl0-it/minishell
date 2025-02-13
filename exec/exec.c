@@ -6,13 +6,13 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/12 16:30:50 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:16:51 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	int await_all_processes(t_data *data)
+static int	await_all_processes(t_data *data)
 {
 	int	i;
 	int	exit_status;
@@ -32,7 +32,7 @@ static int	exec_builtin(t_data *data, int i)
 
 	args = data->pipes[i].cmd;
 	if (NULL == args || NULL == args[0])
-		return (-1); // NOTE: for safety but dunno if I shall do something else
+		return (-1);
 	len = ft_strlen(args[0]);
 	if (0 == ft_strncmp("echo", args[0], len + 1))
 		return (ft_echo(args));
@@ -66,7 +66,7 @@ static int	exec_bin(t_data *data, int i)
 		free(bin_path);
 		ft_putstr_fd("fork failed", 2);
 		return (-1);
-	}	
+	}
 	if (0 == pid)
 	{
 		res = execve(bin_path, data->pipes[i].cmd, data->envp);
@@ -106,18 +106,18 @@ void	execute(t_data *data)
 	int	res;
 
 	i = 0;
-		
+
 	open_pipes(data);
 	while (NULL != data->pipes[i].cmd)
 	{
-		res = exec_builtin(data, i);	
+		res = exec_builtin(data, i);
 		data->pipes[i].pid = 0;
 		if (-1 == res)
 			fork_exec(data, i);
 		data->cmd_exit_code = res;
 		i++;
 	}
-	dup2(data->pipes[i].old_outfd, STDOUT_FILENO);	
+	dup2(data->pipes[i].old_outfd, STDOUT_FILENO);
 	close_pipes(data);
 	data->cmd_exit_code = await_all_processes(data);
 }
