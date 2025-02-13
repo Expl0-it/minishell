@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 12:14:13 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/13 12:14:14 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:41:54 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,7 @@ static void	cleanup_pipes_s(t_data *data)
 
 void	cleanup_iter(t_data *data)
 {
+	// NOTE: close all open files
+	// remove all temp files (like .heredoc)
 	cleanup_pipes_s(data);
 }
