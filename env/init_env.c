@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 13:03:29 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/13 13:37:15 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:38:43 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static t_env	*new_env(char *envp)
 		return (NULL);
 	}
 	env->key = ft_strndup(envp, ft_strchr(envp, '=') - envp);
-	env->val = ft_strndup(ft_strchr(envp, '=') + 1, ft_strlen(ft_strchr(envp, '=') + 1));
+	env->val = ft_strndup(ft_strchr(envp, '=') + 1, \
+				ft_strlen(ft_strchr(envp, '=') + 1));
 	if (NULL == env->key || NULL == env->val)
 	{
 		free_env_var(env);
@@ -45,9 +46,9 @@ int	init_env(t_data *data, char **envp)
 		if (!i)
 		{
 			data->env = new_env(envp[i]);
-		if (NULL == data->env)
-			return (EXIT_FAILURE);
-		current = data->env;
+			if (NULL == data->env)
+				return (EXIT_FAILURE);
+			current = data->env;
 		}
 		else
 		{
