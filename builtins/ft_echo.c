@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 14:00:04 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/10 13:02:26 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/15 12:47:19 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	echo_args(char **args, bool n_flag, int i)
 {
+	if (NULL == args || NULL == args[1])
+		printf("\n");
 	if (NULL == args || NULL == args[i])
 		return ;
 	printf("%s", args[i]);
