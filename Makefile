@@ -24,9 +24,7 @@ ${LIBFT}:
 
 clean:
 	rm -f $(TARGET) $(OBJS)
-	# FIX: UNCOMMENT LATER, DONE FOR TESTING PURPOUSE
-	#
-	# make -C ${LIBFT_PATH} fclean
+	make -C ${LIBFT_PATH} fclean
 
 fclean: clean
 	rm -f $(TARGET) $(NAME)
