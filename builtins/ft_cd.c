@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 12:20:14 by mamichal          #+#    #+#             */
-/*   Updated: 2024/12/10 13:02:09 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:37:12 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	ft_cd(t_data *data, char **args)
 	char	*new_pwd;
 	char	*old_pwd;
 
+	if (NULL == args[1])
+		return (0);
 	new_pwd = args[1];
 	if (NULL != get_env_val(data->env, "PWD"))
 		old_pwd = ft_strdup(get_env_val(data->env, "PWD"));
