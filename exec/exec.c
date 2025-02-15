@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 12:49:26 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/13 13:17:38 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/15 13:00:33 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static int	exec_bin(t_data *data, int i)
 	}
 	if (0 == pid)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		res = execve(bin_path, data->pipes[i].cmd, data->envp);
 		if (-1 == res)
 			return (-1);
