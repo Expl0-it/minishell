@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:43:42 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/12 17:09:49 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/15 09:10:14 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ void	parse_env(t_data *data);
 void	skip_spaces(char **line);
 bool	is_space(char c);
 bool	is_quote(char c);
+short	set_env_str(char *val, int key_len, char **line, char **arg);
+void	check_unclosed_quotes(char *line);
 
 // lexer
 void	lexer(t_data *data);

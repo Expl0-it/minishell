@@ -3,40 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:17:03 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/12 17:18:08 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/02/15 09:09:25 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static short	process_env(t_env *env, char **line, char **arg)
+static short	process_env(t_data *data, char **line, char **arg)
 {
 	t_env	*current;
-	short	n;
+	char	*exit_code_str;
 
 	(*line)++;
-	current = env;
-	n = 0;
+	current = data->env;
+	exit_code_str = ft_itoa((int)data->cmd_exit_code);
+	if (!ft_strncmp("?", *line, 1))
+		return (set_env_str(exit_code_str, 1, line, arg));
 	while (current)
 	{
 		if (!ft_strncmp(current->key, *line, ft_strlen(current->key)))
-		{
-			if (*arg)
-				*arg += ft_strlcpy(*arg, current->val, \
-			ft_strlen(current->val) + 1);
-			*line += ft_strlen(current->key);
-			n += ft_strlen(current->val);
-			break ;
-		}
+			return (set_env_str(current->val, ft_strlen(current->key), line, arg));
 		current = current->next;
 	}
-	return (n);
+	return (0);
 }
 
-static short	process_quoted_arg(t_env *env, char **line, \
+static short	process_quoted_arg(t_data *data, char **line, \
 			short *count, char *arg)
 {
 	short	n;
@@ -46,8 +41,8 @@ static short	process_quoted_arg(t_env *env, char **line, \
 	quote = *(*line)++;
 	while (**line != quote)
 	{
-		if (quote == '"' && **line == '$' && env)
-			n += process_env(env, line, &arg);
+		if (quote == '"' && **line == '$' && data)
+			n += process_env(data, line, &arg);
 		else
 		{
 			if (arg)
@@ -62,17 +57,17 @@ static short	process_quoted_arg(t_env *env, char **line, \
 	return (n);
 }
 
-static short	process_arg(t_env *env, char *line, char *arg)
+static short	process_arg(t_data *data, char *line, char *arg)
 {
 	short	n;
 
 	n = 0;
 	if (is_quote(*line))
-		return (process_quoted_arg(env, &line, NULL, arg));
+		return (process_quoted_arg(data, &line, NULL, arg));
 	while (!is_space(*line) && !is_quote(*line) && *line)
 	{
-		if (env && *line == '$')
-			n += process_env(env, &line, &arg);
+		if (data && *line == '$')
+			n += process_env(data, &line, &arg);
 		else
 		{
 			if (arg)
@@ -109,51 +104,26 @@ static short	count_args(char *line)
 	return (count);
 }
 
-// put it into another file for norminette
-void	check_unclosed_quotes(char *line)
-{
-	short	quote;
-
-	quote = 0;
-	while (*line)
-	{
-		if (is_quote(*line))
-		{
-			if (!quote)
-				quote = *line;
-			else if (quote == *line)
-				quote = 0;
-		}
-		line++;
-	}
-	if (quote)
-	{
-		ft_putstr_fd("error: unclosed quote\n", 2);
-		exit(1);
-	}
-}
-
 void	parse_input(t_data *data, char *line)
 {
-	t_env	*env;
 	short	i;
 	short	n;
 	short	m;
 
 	check_unclosed_quotes(line);
-	env = data->env;
 	n = count_args(line);
 	data->args = malloc(sizeof(char *) * (n + 1));
 	data->args[n] = NULL;
 	i = 0;
 	while (i < n)
 	{
-		m = process_arg(env, line, NULL);
+		m = process_arg(data, line, NULL);
 		data->args[i] = malloc(sizeof(char) * (m + 1));
 		data->args[i][m] = '\0';
-		process_arg(env, line, data->args[i]);
+		// printf("Addr inside - %p\n", data->args[i]);
+		process_arg(data, line, data->args[i]);
 		if (is_quote(*line))
-			process_quoted_arg(env, &line, NULL, NULL);
+			process_quoted_arg(data, &line, NULL, NULL);
 		else
 			line += process_arg(NULL, line, NULL);
 		skip_spaces(&line);
