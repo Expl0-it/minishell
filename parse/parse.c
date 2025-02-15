@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:17:03 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/15 09:09:25 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/15 09:52:54 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static short	process_env(t_data *data, char **line, char **arg)
 	while (current)
 	{
 		if (!ft_strncmp(current->key, *line, ft_strlen(current->key)))
-			return (set_env_str(current->val, ft_strlen(current->key), line, arg));
+			return (set_env_str(current->val, \
+				ft_strlen(current->key), line, arg));
 		current = current->next;
 	}
 	return (0);
@@ -120,7 +121,6 @@ void	parse_input(t_data *data, char *line)
 		m = process_arg(data, line, NULL);
 		data->args[i] = malloc(sizeof(char) * (m + 1));
 		data->args[i][m] = '\0';
-		// printf("Addr inside - %p\n", data->args[i]);
 		process_arg(data, line, data->args[i]);
 		if (is_quote(*line))
 			process_quoted_arg(data, &line, NULL, NULL);

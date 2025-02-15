@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:43:42 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/15 09:10:14 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/15 09:53:26 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	lexer(t_data *data);
 void	set_append(char **args, int j, t_pipes *pipe);
 void	set_heredoc(t_pipes *pipe, char *arg);
 void	set_redirection(char **args, int j, t_pipes *pipe);
-void	set_operators(char **args, int *i, t_pipes *pipe);
+void	set_operators(t_pipes *pipe, char **args, int j);
 // exec
 // exec.c
 void	execute(t_data *data);

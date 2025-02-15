@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 12:14:13 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/15 09:08:45 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/15 09:53:03 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	close_fds(t_pipes *pipe)
 	}
 }
 
-// NOTE: It will be the cleanup on every single request
 static void	cleanup_pipes_s(t_data *data)
 {
 	int		i;
@@ -66,12 +65,11 @@ static void	cleanup_pipes_s(t_data *data)
 
 void	cleanup_iter(t_data *data)
 {
-	// NOTE: close all open files
-	// remove all temp files (like .heredoc)
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (data->args[i])
 	{
-		// printf("Address to free - %p\n", data->args[i]);
 		free(data->args[i]);
 		data->args[i] = NULL;
 		i++;

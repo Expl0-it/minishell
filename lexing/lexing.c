@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 14:39:01 by codespace         #+#    #+#             */
-/*   Updated: 2025/02/11 12:03:07 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/15 09:52:47 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,7 @@ static void	fill_pipes(t_pipes *pipe, char **args, int *j)
 		pipe->cmd[0] = ft_strdup(args[2]);
 	while (args[*j] && ft_strncmp(args[*j], "|", 2))
 	{
-		if (args[*j] && !ft_strncmp(args[*j], ">", 1))
-			set_append(args, *j, pipe);
-		else if (ft_strncmp(args[*j], "<", 2) == 0)
-			set_redirection(args, *j, pipe);
-		else if (!ft_strncmp(args[*j], "<<", 3))
-			set_heredoc(pipe, args[*j + 1]);
+		set_operators(pipe, args, *j);
 		(*j)++;
 	}
 	if (args[*j])
