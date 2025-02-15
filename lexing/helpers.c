@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 12:12:58 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/15 09:52:43 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/15 12:20:00 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_operators(t_pipes *pipe, char **args, int j)
 	else if (ft_strncmp(args[j], "<", 2) == 0)
 		set_redirection(args, j, pipe);
 	else if (!ft_strncmp(args[j], "<<", 3))
-		set_heredoc(pipe, args[j + 1]);	
+		set_heredoc(pipe, args[j + 1]);
 }
 
 void	set_append(char **args, int j, t_pipes *pipe)

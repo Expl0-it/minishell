@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 12:14:13 by mamichal          #+#    #+#             */
-/*   Updated: 2025/02/15 09:53:03 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/15 11:36:32 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ static void	cleanup_pipes_s(t_data *data)
 		curr = &data->pipes[i];
 		close_fds(curr);
 		if (curr->limiter)
+		{
 			free(curr->limiter);
+			unlink(".heredoc");
+		}
 		if (curr->infile)
 			free(curr->infile);
 		if (curr->outfile)
